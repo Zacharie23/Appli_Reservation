@@ -1,0 +1,27 @@
+{
+  "name": "appli_reservation",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Zacharie23/Appli_Reservation#readme",
+  "bugs": {
+    "url": "https://github.com/Zacharie23/Appli_Reservation/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zacharie23/Appli_Reservation.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
