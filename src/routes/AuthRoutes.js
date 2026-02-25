@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/AuthController');
+const schemas = require('../middlewares/ValidationSchemas');
 
 /**
  * @swagger
@@ -28,6 +29,30 @@ const authController = require('../controllers/AuthController');
  *       500:
  *         description: Erreur serveur
  */
-router.post('/login', authController.login);
+router.post('/login', schemas.login, authController.login);
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Inscrit un nouvel utilisateur
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *       409:
+ *         description: Email déjà utilisé
+ */
+router.post('/register', schemas.login, authController.register);
 
 module.exports = router;

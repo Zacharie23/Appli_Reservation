@@ -19,4 +19,11 @@ async function login(email, password) {
     return { user: userWithoutPassword, token };
 }
 
-module.exports = { login };
+async function register(email, password) {
+    const existing = await User.findByEmail(email);
+    if (existing) throw { status: 409, message: 'Email déjà utilisé' };
+    const user = await User.create(email, password);
+    return user;
+}
+
+module.exports = { login, register };

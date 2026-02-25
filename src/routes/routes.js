@@ -3,6 +3,7 @@ const router = express.Router();
 const eventController = require('../controllers/EventController');
 const authenticate = require('../middlewares/AuthMiddleware');
 const authorize = require('../middlewares/RoleMiddleware');
+const schemas = require('../middlewares/ValidationSchemas');
 
 /**
  * @swagger
@@ -53,7 +54,7 @@ router.get('/:id', authenticate, eventController.getEventById);
  *       201:
  *         description: Event créé avec succès
  */
-router.post('/', authenticate, authorize('admin'), eventController.createEvent);
+router.post('/', authenticate, authorize('admin'), schemas.createEvent, eventController.createEvent);
 
 /**
  * @swagger
@@ -80,7 +81,7 @@ router.post('/', authenticate, authorize('admin'), eventController.createEvent);
  *       404:
  *         description: Event pas trouvé
  */
-router.put('/:id', authenticate, authorize('admin'), eventController.updateEvent);
+router.put('/:id', authenticate, authorize('admin'), schemas.createEvent, eventController.updateEvent);
 
 /**
  * @swagger
@@ -107,7 +108,7 @@ router.put('/:id', authenticate, authorize('admin'), eventController.updateEvent
  *       404:
  *         description: Event pas trouvé
  */
-router.patch('/:id', authenticate, authorize('admin'), eventController.patchEvent);
+router.patch('/:id', authenticate, authorize('admin'), schemas.patchEvent, eventController.patchEvent);
 
 /**
  * @swagger
