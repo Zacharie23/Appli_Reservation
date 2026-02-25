@@ -11,9 +11,19 @@ const options = {
     },
     servers: [
       { url: "http://localhost:3000", description: "Serveur local" }
-    ]
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [{ bearerAuth: [] }],
   },
-  apis: ["./src/routes/routes.js"]
+  apis: ["./src/routes/*.js"]
 };
 
 const specs = swaggerJsdoc(options);
