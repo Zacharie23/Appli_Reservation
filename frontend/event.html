@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail événement – Arènes de Dax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="navbar-brand">
+                <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
+            </div>
+            <nav class="navbar-links">
+                <a href="index.html#events">Événements</a>
+                <a href="mes-reservations.html">Mes réservations</a>
+                <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+                <span class="navbar-user" id="navbar-user">
+                    <a href="login.html" id="link-login">Connexion</a>
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero événement -->
+        <section class="event-hero" id="event-details" style="display:none;">
+            <div class="event-hero-content">
+                <button class="btn-back" id="btn-back-to-events">← Retour</button>
+                <div class="event-hero-body">
+                    <div>
+                        <span class="card-event-type" id="event-type"></span>
+                        <h1 class="event-hero-title" id="event-title-detail"></h1>
+                        <p class="event-hero-description" id="event-description"></p>
+                    </div>
+                    <div class="event-hero-info">
+                        <div class="event-info-block">
+                            <span class="event-info-label">📅 Date</span>
+                            <span class="event-info-value" id="event-date"></span>
+                        </div>
+                        <div class="event-info-block">
+                            <span class="event-info-label">🕐 Heure</span>
+                            <span class="event-info-value" id="event-heure"></span>
+                        </div>
+                        <div class="event-info-block">
+                            <span class="event-info-label">🏟️ Capacité</span>
+                            <span class="event-info-value" id="event-capacity"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="event-error" class="alert alert-error" style="display:none; margin: 1rem 2rem;"></div>
+
+        <!-- Places disponibles -->
+        <section class="section">
+            <!-- Remplace la section-header des places par : -->
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Places disponibles</h2>
+                    <p class="section-subtitle" id="places-subtitle">Chargement des places...</p>
+                </div>
+            </div>
+            <div id="places-list"></div>
+
+            <div id="places-empty" class="text-muted" style="display:none; margin-top:1rem;">
+                Aucune place disponible.
+            </div>
+
+            <div id="places-error" class="alert alert-error" style="display:none;"></div>
+        </section>
+
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/event.js"></script>
+</body>
+</html>

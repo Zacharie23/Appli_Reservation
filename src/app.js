@@ -1,5 +1,15 @@
 const express = require('express');
 const app = express();
+
+const cors = require('cors');
+
+// Ajoute ces lignes AVANT tes routes
+app.use(cors({
+    origin: true,  // Autorise tout pour le dev (à restreindre en prod)
+    credentials: true
+}));
+
+
 const routes = require('./routes/routes');
 const setupSwagger = require('../swagger');
 const errorHandler = require('./middlewares/ErrorHandler');

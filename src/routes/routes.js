@@ -16,7 +16,7 @@ const schemas = require('../middlewares/ValidationSchemas');
  *       200:
  *         description: Liste des events
  */
-router.get('/', authenticate, eventController.getEvents);
+router.get('/', eventController.getEvents);
 
 /**
  * @swagger
@@ -35,7 +35,7 @@ router.get('/', authenticate, eventController.getEvents);
  *       200:
  *         description: Détails de l'event demandé
  */
-router.get('/:id', authenticate, eventController.getEventById);
+router.get('/:id', eventController.getEventById);
 
 /**
  * @swagger

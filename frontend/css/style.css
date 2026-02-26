@@ -1,0 +1,250 @@
+/* ====== Variables globales ====== */
+:root {
+    --color-bg: #F5F0E8;
+    --color-bg-dark: #2A1205;
+    --color-primary: #C0392B;
+    --color-secondary: #C8922A;
+    --color-accent: #D4A843;
+    --color-text: #1F130C;
+    --color-text-muted: #8C7B6B;
+    --color-border: #D1C2B2;
+    --color-white: #FFFFFF;
+
+    --font-title: "Playfair Display", serif;
+    --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
+    --transition-fast: 0.2s ease;
+}
+
+/* ====== Reset simple ====== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.hero-wrapper {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Eviter que le contenu colle aux bords de l'écran */
+main {
+    flex: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+}
+
+/* ====== Titres ====== */
+h1, h2, h3 {
+    font-family: var(--font-title);
+    color: var(--color-text);
+}
+
+h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ====== Liens ====== */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+/* ====== Boutons ====== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+    background-color: #a33225;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.btn-secondary:hover {
+    background-color: #a6741f;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ====== Sections sombres ====== */
+.section-dark {
+    background-color: var(--color-bg-dark);
+    color: var(--color-white);
+    padding: 2rem 1.5rem;
+}
+
+.section-dark h1,
+.section-dark h2,
+.section-dark h3,
+.section-dark p {
+    color: var(--color-white);
+}
+
+.section-dark .btn-primary {
+    background-color: var(--color-secondary);
+}
+
+.section-dark .btn-primary:hover {
+    background-color: var(--color-accent);
+}
+
+/* ====== Cartes (events, réservations, etc.) ====== */
+.card {
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+}
+
+.card-title {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.card-footer {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* ====== Formulaires ====== */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: var(--color-text-muted);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background-color: var(--color-white);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.15);
+}
+
+/* ====== Messages ====== */
+.alert {
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    background-color: #ffe3e0;
+    color: #9f3123;
+    border: 1px solid #f2b8b0;
+}
+
+.alert-success {
+    background-color: #e5f7e8;
+    color: #206a3b;
+    border: 1px solid #b1e2bf;
+}
+
+/* Pour le contenu sous la navbar */
+body {
+    margin: 0;
+}

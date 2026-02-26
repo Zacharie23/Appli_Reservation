@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Réservation confirmée – Arènes de Dax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-logo-mark">AD</div>
+            <div>
+            <div class="navbar-title">Arènes de Dax</div>
+            <div class="navbar-subtitle">Réservation en ligne</div>
+            </div>
+        </div>
+        <nav class="navbar-links">
+            <a href="index.html">Événements</a>
+            <a href="mes-reservations.html">Mes réservations</a>
+            <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+            <span class="navbar-user" id="navbar-user">
+            <a href="login.html" id="link-login">Connexion</a>
+            </span>
+        </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Confirmation -->
+        <section class="section">
+        <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <div class="card-header" style="text-align: center;">
+            <div style="width: 60px; height: 60px; margin: 0 auto 1rem; background: var(--color-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 1.8rem; font-weight: bold; color: var(--color-white);">✓</span>
+            </div>
+            <h1 class="card-title">Réservation confirmée !</h1>
+            </div>
+
+            <div id="reservation-details">
+            <!-- Détails injectés en JS -->
+            </div>
+
+            <div class="card-footer">
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <a href="mes-reservations.html" class="btn btn-primary">Voir mes réservations</a>
+                <a href="index.html" class="btn btn-outline">Nouveau événement</a>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <section class="section">
+        <div class="text-muted text-center">
+            <h3>Infos pratiques</h3>
+            <p>Vous pouvez annuler votre réservation à tout moment depuis <strong>"Mes réservations"</strong>.</p>
+            <p>Le paiement se fait sur place lors de la remise des billets.</p>
+        </div>
+        </section>
+    </main>
+
+    <!-- JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/reservation.js"></script>
+</body>
+</html>

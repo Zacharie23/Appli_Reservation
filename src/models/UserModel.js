@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const db = require('../db');
 
+
 function findByEmail(email) {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT * FROM users WHERE email = ?';
@@ -10,6 +11,7 @@ function findByEmail(email) {
         });
     });
 }
+
 
 function findById(id) {
     return new Promise((resolve, reject) => {
@@ -21,23 +23,26 @@ function findById(id) {
     });
 }
 
+
 async function verifyPassword(password, hashedPassword) {
     return bcrypt.compare(password, hashedPassword);
 }
 
-async function create(email, password, role = 'user') {
+
+async function create(email, password, nom, prenom, role = 'user') {  // ← nom + prenom
     const hashed = await bcrypt.hash(password, 10);
     return new Promise((resolve, reject) => {
         db.run(
-        `INSERT INTO users (email, password, role) VALUES (?, ?, ?)`,
-        [email, hashed, role],
-        function (err) {
-            if (err) reject(err);
-            else resolve({ id: this.lastID, email, role });
-        }
+            `INSERT INTO users (email, password, nom, prenom, role) VALUES (?, ?, ?, ?, ?)`,
+            [email, hashed, nom, prenom, role],
+            function (err) {
+                if (err) reject(err);
+                else resolve({ id: this.lastID, email, nom, prenom, role });
+            }
         );
     });
 }
+
 
 module.exports = {
     findByEmail,

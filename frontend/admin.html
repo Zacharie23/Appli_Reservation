@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin – Arènes de Dax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-logo-mark">AD</div>
+            <div>
+            <div class="navbar-title">Arènes de Dax</div>
+            <div class="navbar-subtitle">Réservation en ligne</div>
+            </div>
+        </div>
+        <nav class="navbar-links">
+            <a href="index.html">Événements</a>
+            <a href="mes-reservations.html">Mes réservations</a>
+            <a href="admin.html" class="active">Admin</a>
+            <span class="navbar-user" id="navbar-user">
+            <a href="login.html" id="link-login">Connexion</a>
+            </span>
+        </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Admin Header -->
+        <section class="section">
+        <div class="section-header">
+            <h1 class="section-title">Administration</h1>
+            <p class="section-subtitle">Gestion des événements</p>
+        </div>
+
+        <!-- Bouton créer event -->
+        <div class="card">
+            <div class="card-footer" style="justify-content: flex-start;">
+            <button class="btn btn-primary" id="btn-new-event">
+                + Nouveau événement
+            </button>
+            </div>
+        </div>
+        </section>
+
+        <!-- Liste événements -->
+        <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Événements</h2>
+            <p class="section-subtitle" id="admin-events-subtitle">Chargement...</p>
+        </div>
+
+        <div id="admin-events-list" class="cards-grid">
+            <!-- Cartes événements admin injectées en JS -->
+        </div>
+
+        <div id="admin-events-empty" class="text-muted" style="display:none; margin-top:1rem;">
+            Aucun événement.
+        </div>
+
+        <div id="admin-events-error" class="alert alert-error" style="display:none;"></div>
+        </section>
+
+        <!-- Modal création/édition événement (cachée) -->
+        <div id="event-modal" class="modal" style="display:none;">
+        <div class="modal-overlay" onclick="closeEventModal()"></div>
+        <div class="modal-content">
+            <div class="card">
+            <div class="card-header">
+                <h2 id="modal-title" class="card-title">Nouveau événement</h2>
+                <button class="btn btn-ghost-light" style="margin-left:auto;" onclick="closeEventModal()">
+                ✕
+                </button>
+            </div>
+
+            <form id="event-form">
+                <input type="hidden" id="event-id">
+
+                <div class="form-group">
+                <label for="event-title-input">Titre</label>
+                <input type="text" id="event-title-input" required>
+                </div>
+
+                <div class="form-group">
+                <label for="event-type-input">Type</label>
+                <select id="event-type-input" required>
+                    <option value="">Sélectionner...</option>
+                    <option value="Corrida">Corrida</option>
+                    <option value="Course landaise">Course landaise</option>
+                    <option value="Novillada">Novillada</option>
+                    <option value="Spectacle taurin">Spectacle taurin</option>
+                </select>
+                </div>
+
+                <div class="form-row">
+                <div class="form-group">
+                    <label for="event-date-input">Date</label>
+                    <input type="date" id="event-date-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="event-heure-input">Heure</label>
+                    <input type="time" id="event-heure-input" required>
+                </div>
+                </div>
+
+                <div class="form-group">
+                <label for="event-capacity-input">Capacité totale</label>
+                <input type="number" id="event-capacity-input" min="1" required>
+                </div>
+
+                <div class="form-group">
+                <label for="event-description-input">Description</label>
+                <textarea id="event-description-input" rows="3" maxlength="500"></textarea>
+                </div>
+
+                <div id="event-form-error" class="alert alert-error" style="display:none;"></div>
+
+                <div class="card-footer">
+                <button type="button" class="btn btn-outline" onclick="closeEventModal()">
+                    Annuler
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Créer l'événement
+                </button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </main>
+
+    <!-- JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

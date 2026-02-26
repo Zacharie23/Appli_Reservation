@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion – Arènes de Dax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+            <div class="navbar-brand">
+                <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
+            </div>
+            <nav class="navbar-links">
+                <a href="#events">Événements</a>
+                <a href="mes-reservations.html">Mes réservations</a>
+                <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+                <span class="navbar-user" id="navbar-user">
+                    <a href="login.html" id="link-login">Connexion</a>
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Formulaire de connexion -->
+        <section class="section">
+            <div class="login-modal">
+                <h2 class="login-title">Connexion</h2>
+
+                <form class="login-form">
+                    <div class="login-field">
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            class="login-input"
+                            placeholder="votre@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="login-field">
+                        <label for="password">Mot de passe</label>
+                        <input
+                            type="password"
+                            id="password"
+                            class="login-input"
+                            placeholder="••••••••"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="login-btn">Se connecter</button>
+                </form>
+
+                <div class="link-create">
+                    Pas de compte ? <a href="#register">Créer un compte</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulaire d'inscription (caché) -->
+        <section id="register-section" class="section" style="display:none;">
+            <div class="login-modal">
+                <h2 class="login-title">Inscription</h2>
+
+                <form id="register-form" class="login-form">
+
+                    <!-- Prénom + Nom côte à côte -->
+                    <div class="login-field-row">
+                        <div class="login-field">
+                            <label for="register-prenom">Prénom</label>
+                            <input
+                                type="text"
+                                id="register-prenom"
+                                class="login-input"
+                                placeholder="Jean"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                            >
+                        </div>
+
+                        <div class="login-field">
+                            <label for="register-nom">Nom</label>
+                            <input
+                                type="text"
+                                id="register-nom"
+                                class="login-input"
+                                placeholder="Dupont"
+                                required
+                                minlength="2"
+                                maxlength="50"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="login-field">
+                        <label for="register-email">Email</label>
+                        <input
+                            type="email"
+                            id="register-email"
+                            class="login-input"
+                            placeholder="votre@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="login-field">
+                        <label for="register-password">Mot de passe</label>
+                        <input
+                            type="password"
+                            id="register-password"
+                            class="login-input"
+                            placeholder="••••••••"
+                            required
+                            minlength="6"
+                        >
+                    </div>
+
+                    <div id="register-error" class="alert alert-error" style="display:none;"></div>
+
+                    <button type="submit" class="login-btn">Créer le compte</button>
+                </form>
+
+                <div class="link-create">
+                    Déjà un compte ? <a href="#" id="show-login">Se connecter</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

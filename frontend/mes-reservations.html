@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes réservations – Arènes de Dax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-logo-mark">AD</div>
+            <div>
+            <div class="navbar-title">Arènes de Dax</div>
+            <div class="navbar-subtitle">Réservation en ligne</div>
+            </div>
+        </div>
+        <nav class="navbar-links">
+            <a href="index.html">Événements</a>
+            <a href="mes-reservations.html" class="active">Mes réservations</a>
+            <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+            <span class="navbar-user" id="navbar-user">
+            <a href="login.html" id="link-login">Connexion</a>
+            </span>
+        </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+        <div class="section-header">
+            <h1 class="section-title">Mes réservations</h1>
+            <p class="section-subtitle" id="reservations-subtitle">
+            Chargement de vos réservations...
+            </p>
+        </div>
+
+        <div id="reservations-list" class="cards-grid">
+            <!-- Cartes réservations injectées en JS -->
+        </div>
+
+        <div id="reservations-empty" class="text-muted" style="display:none; margin-top:1rem;">
+            Aucune réservation en cours.
+        </div>
+
+        <div id="reservations-error" class="alert alert-error" style="display:none;"></div>
+        </section>
+    </main>
+
+    <!-- JS -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/mes-reservations.js"></script>
+</body>
+</html>

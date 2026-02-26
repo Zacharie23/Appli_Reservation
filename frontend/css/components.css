@@ -1,0 +1,525 @@
+/* ===========================
+    COMPONENTS CSS
+   =========================== */
+
+/* ====== Navbar ====== */
+header {
+    background: var(--color-bg-dark);
+    color: var(--color-white);
+}
+
+.navbar {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Logo */
+.navbar-brand img {
+    height: 48px;
+    width: auto;
+    display: block;
+}
+
+/* Liens centraux */
+.navbar-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.navbar-links a {
+    color: var(--color-white);
+    white-space: nowrap;
+    opacity: 0.85;
+    font-size: 0.95rem;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 0.1rem;
+    transition: opacity var(--transition-fast), border-color var(--transition-fast);
+}
+
+.navbar-links a:hover {
+    opacity: 1;
+    border-bottom-color: var(--color-accent);
+}
+
+/* Partie droite (connexion / user) */
+.navbar-user {
+    display: flex;
+    align-items: center;   /* ← centrage vertical */
+    gap: 1rem;
+}
+
+.navbar-user span,
+.navbar-greeting {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+#btn-logout {
+    background: #c0392b;        /* ← fond rouge plein */
+    color: white;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#btn-logout:hover {
+    background: #a93226;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(192, 57, 43, 0.5);
+}
+
+
+/* ====== Hero ====== */
+
+.hero {
+    background: 
+        linear-gradient(135deg, 
+        rgba(42, 18, 5, 0.92) 0%, 
+        rgba(42, 18, 5, 0.88) 40%, 
+        rgba(192, 57, 43, 0.15) 100%),
+        url('../src/Arènes-de-Dax-2018.jpg') center/cover no-repeat fixed;
+    color: var(--color-white);
+    flex: 1;  /* ← Prend tout l'espace restant */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 1.5rem;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(212, 168, 67, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Contenu principal */
+.hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 380px;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Titre optimisé */
+.hero-title {
+    font-family: var(--font-title);
+    font-size: clamp(2rem, 5vw, 2.8rem);  /* Responsive auto */
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    text-shadow: none;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+
+/* Sous-titre */
+.hero-subtitle {
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    color: rgba(245, 232, 216, 0.95);
+    max-width: 36rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+}
+
+/* Meta infos */
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+    font-size: 0.9rem;
+    color: rgba(249, 238, 224, 0.9);
+    margin-bottom: 1.8rem;
+}
+
+.hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+}
+
+/* Dots */
+.hero-meta-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px rgba(212, 168, 67, 0.4);
+}
+
+/* Bouton */
+.hero .btn {
+    font-size: 1rem;
+    padding: 0.85rem 2rem;
+    box-shadow: 0 8px 24px rgba(192, 57, 43, 0.3);
+}
+
+/* Sidebar infos */
+.hero-aside {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    padding: 1.6rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.hero-aside h3 {
+    color: var(--color-white);
+    font-size: 1.05rem;
+    margin: 0 0 1.1rem 0;
+    font-weight: 600;
+}
+
+.hero-greeting {
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-item p {
+    margin: 0;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: var(--color-white);
+    font-size: 0.92rem;
+}
+
+.info-item em {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+}
+
+.login-modal {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(192, 57, 43, 0.15);
+    border-radius: 25px;
+    padding: 2rem 2.4rem;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    max-width: 50vw;    /* ← 3/4 de l'écran */
+    width: 50vw;        /* ← forcer la largeur */
+    margin: 0 auto;
+}
+
+.login-title {
+    color: #2c181a;
+    font-size: 1.8rem;       /* ← Titre réduit */
+    font-weight: 700;
+    margin-bottom: 1.8rem;
+    text-align: center;
+}
+
+.login-field {
+    margin-bottom: 1.6rem;    /* ← Espacement réduit */
+}
+
+.login-field label {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #6b4e31;
+    margin-bottom: 0.6rem;
+}
+
+.login-input {
+    width: 100%;
+    padding: 1.1rem 1.4rem;   /* ← Padding champs réduit */
+    border: 2px solid rgba(192, 57, 43, 0.2);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.3s;
+}
+
+.login-input:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.06);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1.1rem 2rem;     /* ← Bouton plus compact */
+    background: #c0392b;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #a93226;
+    box-shadow: 0 6px 18px rgba(192, 57, 43, 0.3);
+}
+
+.login-field-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.login-field-row .login-field {
+    flex: 1;
+}
+
+
+.link-create {
+    text-align: center;
+    margin-top: 1.4rem;
+    font-size: 0.92rem;
+}
+
+.link-create a {
+    color: #c0392b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ====== Grille de cartes ====== */
+
+/* Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* ← 2 colonnes fixes */
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Carte */
+.card-event {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-event::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 4px 0 0 4px;
+}
+
+.card-event:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Header carte */
+.card-event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.card-event-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin: 0 0 0.3rem 0;
+    line-height: 1.3;
+}
+
+.card-event-type {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    background: rgba(192, 57, 43, 0.08);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Date/heure */
+.card-event-meta {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.card-event-date {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.card-event-time {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 0.1rem;
+}
+
+/* Description */
+.card-event-description {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    flex: 1;
+}
+
+/* Footer */
+.card-event-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.4rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Badge capacité */
+.badge {
+    display: inline-flex;   /* ← au lieu de flex */
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    background: rgba(0, 0, 0, 0.04);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    width: fit-content;     /* ← taille selon contenu */
+}
+
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c0392b;
+    display: inline-block;
+}
+
+
+/* ====== Boutons (affinage) ====== */
+
+.btn-sm {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+}
+
+.btn-ghost-light {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    color: var(--color-white);
+}
+
+.btn-ghost-light:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ====== Sections ====== */
+
+.section {
+    margin-top: 2rem;
+}
+
+.section-header {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* ====== Petites utilitaires ====== */
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }

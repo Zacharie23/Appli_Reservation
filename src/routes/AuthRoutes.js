@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/AuthController');
 const schemas = require('../middlewares/ValidationSchemas');
 
+
 /**
  * @swagger
  * /auth/login:
@@ -14,6 +15,7 @@ const schemas = require('../middlewares/ValidationSchemas');
  *         application/json:
  *           schema:
  *             type: object
+ *             required: [email, password]
  *             properties:
  *               email:
  *                 type: string
@@ -31,6 +33,7 @@ const schemas = require('../middlewares/ValidationSchemas');
  */
 router.post('/login', schemas.login, authController.login);
 
+
 /**
  * @swagger
  * /auth/register:
@@ -42,17 +45,30 @@ router.post('/login', schemas.login, authController.login);
  *         application/json:
  *           schema:
  *             type: object
+ *             required: [email, password, nom, prenom]
  *             properties:
  *               email:
  *                 type: string
  *               password:
  *                 type: string
+ *                 minLength: 6
+ *               nom:
+ *                 type: string    
+ *                 minLength: 2
+ *                 maxLength: 50
+ *               prenom:
+ *                 type: string
+ *                 minLength: 2
+ *                 maxLength: 50
  *     responses:
  *       201:
  *         description: Utilisateur créé avec succès
+ *       400:
+ *         description: Champs manquants ou invalides
  *       409:
  *         description: Email déjà utilisé
  */
-router.post('/register', schemas.login, authController.register);
+router.post('/register', schemas.register, authController.register);
+
 
 module.exports = router;

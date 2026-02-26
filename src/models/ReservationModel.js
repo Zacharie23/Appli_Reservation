@@ -61,7 +61,7 @@ function getByEvent(eventId) {
 function getById(id) {
     return new Promise((resolve, reject) => {
         db.get(`
-        SELECT r.id, r.created_at,
+        SELECT r.id, r.user_id, r.created_at,
                 u.email AS user_email,
                 e.title AS event_title, e.date AS event_date,
                 s.value AS seat_value,
