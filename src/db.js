@@ -20,7 +20,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error("Erreur création table:", err.message);
             else {
                 console.log("Table 'users' prête !");
-                // Insert d'utilisateurs de test
                 const insert = `INSERT INTO users (email, password, role) VALUES (?, ?, ?)`;
 
                 const users = [

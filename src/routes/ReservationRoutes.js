@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const reservationController = require('../controllers/ReservationController');
-const authenticate = require('../middlewares/AuthMiddleware');
+const { authenticate } = require('../middlewares/AuthMiddleware');
 const authorize = require('../middlewares/RoleMiddleware');
 const schemas = require('../middlewares/ValidationSchemas');
-
 
 /**
  * @swagger

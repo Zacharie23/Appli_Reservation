@@ -38,7 +38,6 @@ async function getReservationById(req, res, next) {
 
 async function createReservation(req, res, next) {
     try {
-        // On force le user_id à partir du token JWT, pas du body
         const data = {
         user_id:  req.user.id,
         event_id: req.body.event_id,

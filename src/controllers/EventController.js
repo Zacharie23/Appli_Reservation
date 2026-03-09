@@ -1,6 +1,3 @@
-// Appeler le bon service et renvoyer la réponse.
-// 1 fichier par ressource
-
 const eventService = require('../services/EventService');
 
 async function getEvents(req, res) {

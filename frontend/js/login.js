@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
 });
 
-
 function setupEventListeners() {
     document.querySelector('.link-create a')?.addEventListener('click', (e) => {
         e.preventDefault();
@@ -21,13 +20,11 @@ function setupEventListeners() {
     document.getElementById('register-form')?.addEventListener('submit', handleRegister);
 }
 
-
 function checkAuth() {
     if (isAuthenticated()) {
         window.location.href = 'index.html';
     }
 }
-
 
 async function handleLogin(e) {
     e.preventDefault();
@@ -59,12 +56,11 @@ async function handleLogin(e) {
     }
 }
 
-
 async function handleRegister(e) {
     e.preventDefault();
 
-    const prenom = document.getElementById('register-prenom').value.trim(); // ← nouveau
-    const nom    = document.getElementById('register-nom').value.trim();    // ← nouveau
+    const prenom = document.getElementById('register-prenom').value.trim();
+    const nom    = document.getElementById('register-nom').value.trim();
     const email  = document.getElementById('register-email').value.trim();
     const password = document.getElementById('register-password').value;
     const errorEl = document.getElementById('register-error');
@@ -78,9 +74,8 @@ async function handleRegister(e) {
     }
 
     try {
-        await apiRegister(email, password, nom, prenom); // ← nom + prenom
+        await apiRegister(email, password, nom, prenom);
 
-        // Retour au login
         document.getElementById('register-section').style.display = 'none';
         document.querySelector('.section').style.display = 'block';
 
@@ -97,7 +92,7 @@ async function handleRegister(e) {
                 document.querySelector('.login-btn')
             );
         }
-        successEl.textContent = `✅ Compte créé ! Connectez-vous, ${prenom}.`; // ← prénom
+        successEl.textContent = `✅ Compte créé ! Connectez-vous, ${prenom}.`;
         successEl.style.display = 'block';
 
     } catch (err) {

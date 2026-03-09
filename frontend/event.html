@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Détail événement – Arènes de Dax</title>
+    <title>Evénement – Arènes de Dax</title>
+    <link rel="icon" type="image/x-icon" href="src/petit logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +34,6 @@
 
     <main>
 
-        <!-- Hero événement -->
         <section class="event-hero" id="event-details" style="display:none;">
             <div class="event-hero-content">
                 <button class="btn-back" id="btn-back-to-events">← Retour</button>
@@ -63,9 +63,7 @@
 
         <div id="event-error" class="alert alert-error" style="display:none; margin: 1rem 2rem;"></div>
 
-        <!-- Places disponibles -->
         <section class="section">
-            <!-- Remplace la section-header des places par : -->
             <div class="section-header">
                 <div>
                     <h2 class="section-title">Places disponibles</h2>
@@ -82,6 +80,41 @@
         </section>
 
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-brand">
+                    <img src="src/logo-arenes-de-dax.png" alt="Logo">
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Événements</a>
+                    <a href="mes-reservations.html">Mes réservations</a>
+                    <a href="login.html">Connexion</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Arènes de Dax</h4>
+                    <span>📍 Place Thiers, 40100 Dax</span>
+                    <span>📞 05 58 56 86 86</span>
+                    <span>✉️ contact@arenes-dax.fr</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Arènes de Dax. Tous droits réservés.</span>
+            <span>Fait avec ❤️ pour la tauromachie landaise</span>
+        </div>
+    </footer>
 
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>

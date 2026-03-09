@@ -3,146 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin – Arènes de Dax</title>
+    <link rel="icon" type="image/x-icon" href="src/petit logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
-        <div class="navbar-brand">
-            <div class="navbar-logo-mark">AD</div>
-            <div>
-            <div class="navbar-title">Arènes de Dax</div>
-            <div class="navbar-subtitle">Réservation en ligne</div>
+            <div class="navbar-brand">
+                <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
             </div>
-        </div>
-        <nav class="navbar-links">
-            <a href="index.html">Événements</a>
-            <a href="mes-reservations.html">Mes réservations</a>
-            <a href="admin.html" class="active">Admin</a>
-            <span class="navbar-user" id="navbar-user">
-            <a href="login.html" id="link-login">Connexion</a>
-            </span>
-        </nav>
+            <nav class="navbar-links">
+                <a href="index.html">Événements</a>
+                <a href="mes-reservations.html">Mes réservations</a>
+                <a href="admin.html" class="active">Admin</a>
+                <span class="navbar-user" id="navbar-user"></span>
+            </nav>
         </div>
     </header>
 
     <main>
-        <!-- Admin Header -->
-        <section class="section">
-        <div class="section-header">
-            <h1 class="section-title">Administration</h1>
-            <p class="section-subtitle">Gestion des événements</p>
-        </div>
-
-        <!-- Bouton créer event -->
-        <div class="card">
-            <div class="card-footer" style="justify-content: flex-start;">
-            <button class="btn btn-primary" id="btn-new-event">
-                + Nouveau événement
-            </button>
+        <div class="admin-hero">
+            <div class="admin-hero-content">
+                <div>
+                    <span class="admin-badge">⚙️ Administration</span>
+                    <h1 class="admin-hero-title">Gestion des événements</h1>
+                    <p class="admin-hero-subtitle">Créez, modifiez et supprimez les événements des Arènes de Dax</p>
+                </div>
+                <button class="btn btn-primary" id="btn-new-event">
+                    + Nouveau événement
+                </button>
             </div>
         </div>
-        </section>
 
-        <!-- Liste événements -->
         <section class="section">
-        <div class="section-header">
-            <h2 class="section-title">Événements</h2>
-            <p class="section-subtitle" id="admin-events-subtitle">Chargement...</p>
-        </div>
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Événements</h2>
+                    <p class="section-subtitle" id="admin-events-subtitle">Chargement...</p>
+                </div>
+            </div>
 
-        <div id="admin-events-list" class="cards-grid">
-            <!-- Cartes événements admin injectées en JS -->
-        </div>
+            <div id="success-msg"></div>
 
-        <div id="admin-events-empty" class="text-muted" style="display:none; margin-top:1rem;">
-            Aucun événement.
-        </div>
+            <div id="admin-events-list" class="cards-grid"></div>
 
-        <div id="admin-events-error" class="alert alert-error" style="display:none;"></div>
+            <div id="admin-events-empty" style="display:none;">
+                <div class="reservations-empty">
+                    <div class="reservations-empty-icon">📅</div>
+                    <h3>Aucun événement</h3>
+                    <p>Créez votre premier événement.</p>
+                </div>
+            </div>
+
+            <div id="admin-events-error" class="alert alert-error" style="display:none;"></div>
         </section>
 
-        <!-- Modal création/édition événement (cachée) -->
         <div id="event-modal" class="modal" style="display:none;">
-        <div class="modal-overlay" onclick="closeEventModal()"></div>
-        <div class="modal-content">
-            <div class="card">
-            <div class="card-header">
-                <h2 id="modal-title" class="card-title">Nouveau événement</h2>
-                <button class="btn btn-ghost-light" style="margin-left:auto;" onclick="closeEventModal()">
-                ✕
-                </button>
+            <div class="modal-overlay" onclick="closeEventModal()"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-title">Nouveau événement</h2>
+                    <button class="modal-close" onclick="closeEventModal()">✕</button>
+                </div>
+
+                <form id="event-form" class="modal-body">
+                    <input type="hidden" id="event-id">
+
+                    <div class="modal-form-group">
+                        <label for="event-title-input">Titre *</label>
+                        <input type="text" id="event-title-input" class="login-input" placeholder="Ex: Corrida de Victorino Martin" required>
+                    </div>
+
+                    <div class="modal-form-row">
+                        <div class="modal-form-group">
+                            <label for="event-type-input">Type *</label>
+                            <select id="event-type-input" class="login-input" required>
+                                <option value="">Sélectionner...</option>
+                                <option value="Corrida">Corrida</option>
+                                <option value="Course landaise">Course landaise</option>
+                                <option value="Novillada">Novillada</option>
+                                <option value="Spectacle taurin">Spectacle taurin</option>
+                                <option value="Concert">Concert</option>
+                                <option value="Cocarde">Cocarde</option>
+                            </select>
+                        </div>
+                        <div class="modal-form-group">
+                            <label for="event-capacity-input">Capacité *</label>
+                            <input type="number" id="event-capacity-input" class="login-input" min="1" placeholder="Ex: 7000" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-row">
+                        <div class="modal-form-group">
+                            <label for="event-date-input">Date *</label>
+                            <input type="date" id="event-date-input" class="login-input" required>
+                        </div>
+                        <div class="modal-form-group">
+                            <label for="event-heure-input">Heure *</label>
+                            <input type="time" id="event-heure-input" class="login-input" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-form-group">
+                        <label for="event-description-input">Description</label>
+                        <textarea id="event-description-input" class="login-input" rows="3" maxlength="500" placeholder="Description de l'événement..."></textarea>
+                    </div>
+
+                    <div id="event-form-error" class="alert alert-error" style="display:none;"></div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline" onclick="closeEventModal()">Annuler</button>
+                        <button type="submit" class="btn btn-primary" id="modal-submit-btn">Créer l'événement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <section class="section">
+
+            <div class="admin-hero admin-hero-users">
+                <div class="admin-hero-content">
+                    <div>
+                        <span class="admin-badge">⚙️ Administration</span>
+                        <h2 class="admin-hero-title">Gestion des Utilisateurs</h2>
+                        <p class="admin-hero-subtitle">Gérez les comptes et les droits d'accès</p>
+                    </div>
+                    <button class="btn btn-primary" id="btn-new-user">+ Nouvel utilisateur</button>
+                </div>
             </div>
 
-            <form id="event-form">
-                <input type="hidden" id="event-id">
+            <p class="section-subtitle" id="admin-users-subtitle" style="margin-top: 1rem;">Chargement...</p>
 
-                <div class="form-group">
-                <label for="event-title-input">Titre</label>
-                <input type="text" id="event-title-input" required>
+            <div id="success-msg-users"></div>
+
+            <div id="admin-users-list" class="users-table"></div>
+
+            <div id="admin-users-empty" style="display:none;">
+                <div class="reservations-empty">
+                    <div class="reservations-empty-icon">👤</div>
+                    <h3>Aucun utilisateur</h3>
+                </div>
+            </div>
+
+            <div id="admin-users-error" class="alert alert-error" style="display:none;"></div>
+        </section>
+
+    <div id="user-modal" class="modal" style="display:none;">
+        <div class="modal-overlay" onclick="closeUserModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="user-modal-title">Nouvel utilisateur</h2>
+                <button class="modal-close" onclick="closeUserModal()">✕</button>
+            </div>
+
+            <form id="user-form" class="modal-body">
+                <input type="hidden" id="user-id">
+
+                <div class="modal-form-group">
+                    <label for="user-email-input">Email *</label>
+                    <input type="email" id="user-email-input" class="login-input" placeholder="exemple@email.com" required>
                 </div>
 
-                <div class="form-group">
-                <label for="event-type-input">Type</label>
-                <select id="event-type-input" required>
-                    <option value="">Sélectionner...</option>
-                    <option value="Corrida">Corrida</option>
-                    <option value="Course landaise">Course landaise</option>
-                    <option value="Novillada">Novillada</option>
-                    <option value="Spectacle taurin">Spectacle taurin</option>
-                </select>
+                <div class="modal-form-row">
+                    <div class="modal-form-group">
+                        <label for="user-prenom-input">Prénom</label>
+                        <input type="text" id="user-prenom-input" class="login-input" placeholder="Ex: Lucas">
+                    </div>
+                    <div class="modal-form-group">
+                        <label for="user-nom-input">Nom</label>
+                        <input type="text" id="user-nom-input" class="login-input" placeholder="Ex: Dupont">
+                    </div>
                 </div>
 
-                <div class="form-row">
-                <div class="form-group">
-                    <label for="event-date-input">Date</label>
-                    <input type="date" id="event-date-input" required>
-                </div>
-                <div class="form-group">
-                    <label for="event-heure-input">Heure</label>
-                    <input type="time" id="event-heure-input" required>
-                </div>
+                <div class="modal-form-group">
+                    <label for="user-password-input">Mot de passe <span id="password-hint">(laisser vide pour ne pas modifier)</span></label>
+                    <input type="password" id="user-password-input" class="login-input" placeholder="••••••••">
                 </div>
 
-                <div class="form-group">
-                <label for="event-capacity-input">Capacité totale</label>
-                <input type="number" id="event-capacity-input" min="1" required>
+                <div class="modal-form-group">
+                    <label for="user-role-input">Rôle *</label>
+                    <select id="user-role-input" class="login-input" required>
+                        <option value="user">Utilisateur</option>
+                        <option value="admin">Administrateur</option>
+                    </select>
                 </div>
 
-                <div class="form-group">
-                <label for="event-description-input">Description</label>
-                <textarea id="event-description-input" rows="3" maxlength="500"></textarea>
-                </div>
+                <div id="user-form-error" class="alert alert-error" style="display:none;"></div>
 
-                <div id="event-form-error" class="alert alert-error" style="display:none;"></div>
-
-                <div class="card-footer">
-                <button type="button" class="btn btn-outline" onclick="closeEventModal()">
-                    Annuler
-                </button>
-                <button type="submit" class="btn btn-primary">
-                    Créer l'événement
-                </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeUserModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary" id="user-submit-btn">Créer</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="src/logo-arenes-de-dax.png" alt="Logo">
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Événements</a>
+                    <a href="mes-reservations.html">Mes réservations</a>
+                    <a href="login.html">Connexion</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Arènes de Dax</h4>
+                    <span>📍 Place Thiers, 40100 Dax</span>
+                    <span>📞 05 58 56 86 86</span>
+                    <span>✉️ contact@arenes-dax.fr</span>
+                </div>
             </div>
         </div>
-        </div>
-    </main>
 
-    <!-- JS -->
+        <div class="footer-bottom">
+            <span>© 2026 Arènes de Dax. Tous droits réservés.</span>
+            <span>Fait avec ❤️ pour la tauromachie landaise</span>
+        </div>
+    </footer>
+
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>
     <script src="js/admin.js"></script>

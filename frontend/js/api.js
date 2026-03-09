@@ -1,10 +1,5 @@
-// frontend/js/api.js
-
 const API_BASE_URL = 'http://localhost:3000';
 
-/**
- * Wrapper générique pour les appels API
- */
 async function apiRequest(path, options = {}) {
     const token = getToken();
     const headers = options.headers ? { ...options.headers } : {};
@@ -44,26 +39,21 @@ async function apiRequest(path, options = {}) {
     return data;
 }
 
-/* ========== AUTH ========== */
-
 async function apiLogin(email, password) {
     const res = await apiRequest('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
     });
-    // On suppose que le backend renvoie { token, user }
     saveAuth(res.token, res.user);
     return res;
     }
 
-async function apiRegister(email, password, nom, prenom) { // ← nom + prenom
+async function apiRegister(email, password, nom, prenom) {
     return await apiRequest('/auth/register', {
         method: 'POST',
-        body: JSON.stringify({ email, password, nom, prenom }), // ← nom + prenom
+        body: JSON.stringify({ email, password, nom, prenom }),
     });
 }
-
-/* ========== EVENTS ========== */
 
 async function apiGetEvents() {
     return await apiRequest('/events', { method: 'GET' });
@@ -73,13 +63,9 @@ async function apiGetEventById(id) {
     return await apiRequest(`/events/${id}`, { method: 'GET' });
 }
 
-/* ========== CATEGORIES ========== */
-
 async function apiGetCategories() {
     return await apiRequest('/categories', { method: 'GET' });
 }
-
-/* ========== SEATS ========== */
 
 async function apiGetSeats() {
     return await apiRequest('/seats', { method: 'GET' });
@@ -88,8 +74,6 @@ async function apiGetSeats() {
 async function apiGetAvailableSeats(eventId) {
     return await apiRequest(`/seats/available/${eventId}`, { method: 'GET' });
 }
-
-/* ========== RESERVATIONS ========== */
 
 async function apiGetMyReservations() {
     return await apiRequest('/reservations/me', { method: 'GET' });
@@ -107,8 +91,6 @@ async function apiDeleteReservation(id) {
         method: 'DELETE',
     });
 }
-
-/* ========== ADMIN (Events) ========== */
 
 async function apiCreateEvent(eventData) {
     return await apiRequest('/events', {
@@ -135,4 +117,26 @@ async function apiDeleteEvent(id) {
     return await apiRequest(`/events/${id}`, {
         method: 'DELETE',
     });
+}
+
+async function apiGetUsers() {
+    return await apiRequest('/users', { method: 'GET' });
+}
+
+async function apiCreateUser(data) {
+    return await apiRequest('/users', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    });
+}
+
+async function apiUpdateUser(id, data) {
+    return await apiRequest(`/users/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data)
+    });
+}
+
+async function apiDeleteUser(id) {
+    return await apiRequest(`/users/${id}`, { method: 'DELETE' });
 }

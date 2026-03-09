@@ -1,8 +1,6 @@
-// frontend/js/index.js
-
 document.addEventListener('DOMContentLoaded', () => {
     setupNavbar();
-    setupHeroGreeting(); // ← nouveau
+    setupHeroGreeting();
     loadEvents();
 });
 
@@ -13,7 +11,6 @@ function setupNavbar() {
     const linkAdmin = document.getElementById('link-admin');
 
     if (user) {
-        // Plus de greeting dans la navbar, juste le bouton déconnexion
         navbarUser.innerHTML = `
             <button class="btn btn-outline btn-sm" id="btn-logout">Déconnexion</button>
         `;
@@ -28,7 +25,6 @@ function setupNavbar() {
     }
 }
 
-
 function setupHeroGreeting() {
     const user = getCurrentUser();
     const heroGreeting = document.getElementById('hero-greeting');
@@ -36,7 +32,6 @@ function setupHeroGreeting() {
         heroGreeting.textContent = `Bonjour, ${user.prenom} 👋`;
     }
 }
-
 
 async function loadEvents() {
     const listEl = document.getElementById('events-list');
@@ -58,7 +53,6 @@ async function loadEvents() {
             return;
         }
 
-        // Tri du plus proche au plus loin
         events.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         subtitleEl.textContent = `${events.length} événement(s) disponible(s)`;
@@ -93,7 +87,6 @@ async function loadEvents() {
             listEl.appendChild(card);
         });
 
-        // Listeners boutons "Voir les places"
         listEl.querySelectorAll('button[data-event-id]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const eventId = btn.getAttribute('data-event-id');
@@ -109,10 +102,8 @@ async function loadEvents() {
     }
 }
 
-
 function formatDate(dateStr) {
     if (!dateStr) return '';
-    // Gère les formats DD/MM/YYYY et YYYY-MM-DD
     let date;
     if (dateStr.includes('/')) {
         const [d, m, y] = dateStr.split('/');
@@ -124,9 +115,6 @@ function formatDate(dateStr) {
         day: '2-digit', month: 'long', year: 'numeric'
     });
 }
-
-
-
 
 function escapeHtml(str) {
     if (!str) return '';

@@ -1,88 +1,127 @@
-// frontend/js/reservation.js
-
 document.addEventListener('DOMContentLoaded', () => {
     setupNavbar();
-    loadReservationFromUrl();
+    loadReservationsFromUrl();
 });
 
 function setupNavbar() {
-    const user = getCurrentUser();
+    const user       = getCurrentUser();
     const navbarUser = document.getElementById('navbar-user');
-    const linkLogin = document.getElementById('link-login');
-    const linkAdmin = document.getElementById('link-admin');
+    const linkAdmin  = document.getElementById('link-admin');
 
     if (user) {
         navbarUser.innerHTML = `
-        <span>Bonjour, ${user.email}</span>
-        <button class="btn btn-outline btn-sm" id="btn-logout">Déconnexion</button>
+            <button class="btn btn-outline btn-sm" id="btn-logout">Déconnexion</button>
         `;
         document.getElementById('btn-logout').addEventListener('click', logout);
-        
-        if (user.role === 'admin') {
-        linkAdmin.style.display = 'inline';
-        }
+        if (user.role === 'admin') linkAdmin.style.display = 'inline';
     } else {
-        navbarUser.innerHTML = `<a href="login.html" id="link-login">Connexion</a>`;
+        navbarUser.innerHTML = `<a href="login.html">Connexion</a>`;
         linkAdmin.style.display = 'none';
     }
 }
 
-function loadReservationFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const reservationId = parseInt(urlParams.get('id'));
+function loadReservationsFromUrl() {
+    const params   = new URLSearchParams(window.location.search);
+    const idsParam = params.get('ids') || params.get('id');
 
-    if (!reservationId) {
+    if (!idsParam) {
         showError('ID réservation manquant dans l\'URL');
         return;
     }
 
-    loadReservationDetails(reservationId);
+    const ids = idsParam.split(',').map(id => parseInt(id)).filter(Boolean);
+    loadReservations(ids);
 }
 
-async function loadReservationDetails(reservationId) {
+async function loadReservations(ids) {
     const detailsEl = document.getElementById('reservation-details');
 
     try {
-        // On utilise apiGetMyReservations pour récupérer les détails
-        const reservations = await apiGetMyReservations();
-        const reservation = reservations.find(r => r.id == reservationId);
+        const allReservations = await apiGetMyReservations();
 
-        if (!reservation) {
-        throw new Error('Réservation non trouvée');
+        const reservations = ids.map(id => {
+            const found = allReservations.find(r => r.id == id);
+            if (!found) throw new Error(`Réservation #${id} non trouvée`);
+            return found;
+        });
+
+        if (ids.length > 1) {
+            document.querySelector('.confirmation-title').textContent =
+                `${ids.length} réservations confirmées !`;
+            document.querySelector('.confirmation-subtitle').textContent =
+                `Vos ${ids.length} places ont bien été réservées aux Arènes de Dax`;
         }
 
-        detailsEl.innerHTML = `
-        <div style="margin-bottom: 1.2rem;">
-            <h3 style="margin-bottom: 0.4rem;">${escapeHtml(reservation.event_title)}</h3>
-            <div class="text-muted" style="font-size: 0.9rem;">
-            <div>${escapeHtml(reservation.event_date)} à ${escapeHtml(reservation.event_heure)}</div>
-            <div>${escapeHtml(reservation.seat_value)}</div>
-            <div>${escapeHtml(reservation.category_name)} • ${escapeHtml(reservation.category_situation)}</div>
-            <div style="font-weight: 600; color: var(--color-primary); margin-top: 0.2rem;">
-                ${reservation.category_price}€
-            </div>
-            </div>
-        </div>
-        <div class="text-muted" style="font-size: 0.85rem;">
-            <p>Réservée le <strong>${reservation.created_at}</strong></p>
-        </div>
-        `;
+        detailsEl.innerHTML = '';
+
+        reservations.forEach((res, i) => {
+            const card = document.createElement('div');
+            card.className = ids.length > 1 ? 'reservation-card' : '';
+
+            card.innerHTML = `
+                ${ids.length > 1 ? `<div class="reservation-card-index">Place ${i + 1}</div>` : ''}
+                <div class="confirmation-event-title">${escapeHtml(res.event_title)}</div>
+                <hr>
+                <div class="confirmation-row">
+                    <div class="confirmation-block">
+                        <span class="confirmation-label">📅 DATE</span>
+                        <span class="confirmation-value">${formatDate(res.event_date)}</span>
+                    </div>
+                    <div class="confirmation-block">
+                        <span class="confirmation-label">🕐 HEURE</span>
+                        <span class="confirmation-value">${res.event_heure || '—'}</span>
+                    </div>
+                    <div class="confirmation-block">
+                        <span class="confirmation-label">🪑 PLACE</span>
+                        <span class="confirmation-value">${escapeHtml(res.seat_value)}</span>
+                    </div>
+                    <div class="confirmation-block">
+                        <span class="confirmation-label">🏷️ CATÉGORIE</span>
+                        <span class="confirmation-value">${escapeHtml(res.category_name)} • ${escapeHtml(res.category_situation)}</span>
+                    </div>
+                </div>
+                <div class="confirmation-price">${res.category_price}€</div>
+                <div class="confirmation-date">Réservée le ${formatDateTime(res.created_at)}</div>
+            `;
+
+            detailsEl.appendChild(card);
+        });
+
+        if (ids.length > 1) {
+            const total = reservations.reduce((sum, r) => sum + parseFloat(r.category_price || 0), 0);
+            const totalCard = document.createElement('div');
+            totalCard.className = 'reservation-total-card';
+            totalCard.innerHTML = `
+                <span>Total payé</span>
+                <span class="panier-total-price">${total.toFixed(2)}€</span>
+            `;
+            detailsEl.appendChild(totalCard);
+        }
 
     } catch (err) {
-        console.error('Erreur réservation:', err);
-        detailsEl.innerHTML = `
-        <div class="alert alert-error">
-            <strong>Erreur :</strong> ${escapeHtml(err.message || 'Réservation non trouvée')}
-        </div>
-        `;
+        console.error(err);
+        showError(err.message || 'Erreur lors du chargement');
     }
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: 'long', year: 'numeric'
+    });
+}
+
+function formatDateTime(dateStr) {
+    if (!dateStr) return '—';
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
 }
 
 function showError(message) {
     document.getElementById('reservation-details').innerHTML = `
-        <div class="alert alert-error">
-        <strong>Erreur :</strong> ${escapeHtml(message)}
-        </div>
+        <div class="alert alert-error">${escapeHtml(message)}</div>
     `;
 }
 

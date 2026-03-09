@@ -8,7 +8,7 @@ function validate(schema) {
             // Champ requis
             if (rules.required && (value === undefined || value === null || value === '')) {
                 errors.push(`Le champ "${field}" est requis`);
-                continue; // Inutile de vérifier les autres règles si le champ est absent
+                continue;
             }
 
             // Si le champ est optionnel et absent, on passe

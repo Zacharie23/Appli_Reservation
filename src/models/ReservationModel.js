@@ -24,6 +24,7 @@ function getByUser(userId) {
     return new Promise((resolve, reject) => {
         db.all(`
         SELECT r.id, r.created_at,
+                r.event_id, 
                 e.title AS event_title, e.date AS event_date, e.heure AS event_heure,
                 s.value AS seat_value,
                 c.name  AS category_name, c.price AS category_price, c.situation AS category_situation

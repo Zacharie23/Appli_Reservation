@@ -3,12 +3,10 @@ const app = express();
 
 const cors = require('cors');
 
-// Ajoute ces lignes AVANT tes routes
 app.use(cors({
-    origin: true,  // Autorise tout pour le dev (à restreindre en prod)
+    origin: true,
     credentials: true
 }));
-
 
 const routes = require('./routes/routes');
 const setupSwagger = require('../swagger');
@@ -17,6 +15,7 @@ const authRoutes = require('./routes/AuthRoutes');
 const reservationRoutes = require('./routes/ReservationRoutes');
 const seatRoutes     = require('./routes/SeatRoutes');
 const categoryRoutes = require('./routes/CategoryRoutes');
+const userRoutes = require('./routes/UserRoutes');
 
 setupSwagger(app);
 
@@ -26,6 +25,7 @@ app.use('/auth', authRoutes);
 app.use('/reservations', reservationRoutes);
 app.use('/seats',      seatRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/users', userRoutes);
 
 app.use(errorHandler);
 

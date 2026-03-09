@@ -3,7 +3,6 @@ const router = express.Router();
 const authController = require('../controllers/AuthController');
 const schemas = require('../middlewares/ValidationSchemas');
 
-
 /**
  * @swagger
  * /auth/login:
@@ -32,7 +31,6 @@ const schemas = require('../middlewares/ValidationSchemas');
  *         description: Erreur serveur
  */
 router.post('/login', schemas.login, authController.login);
-
 
 /**
  * @swagger
@@ -69,6 +67,5 @@ router.post('/login', schemas.login, authController.login);
  *         description: Email déjà utilisé
  */
 router.post('/register', schemas.register, authController.register);
-
 
 module.exports = router;

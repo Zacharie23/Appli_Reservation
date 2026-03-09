@@ -3,63 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes réservations – Arènes de Dax</title>
+    <link rel="icon" type="image/x-icon" href="src/petit logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
-        <div class="navbar-brand">
-            <div class="navbar-logo-mark">AD</div>
-            <div>
-            <div class="navbar-title">Arènes de Dax</div>
-            <div class="navbar-subtitle">Réservation en ligne</div>
+            <div class="navbar-brand">
+                <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
             </div>
-        </div>
-        <nav class="navbar-links">
-            <a href="index.html">Événements</a>
-            <a href="mes-reservations.html" class="active">Mes réservations</a>
-            <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
-            <span class="navbar-user" id="navbar-user">
-            <a href="login.html" id="link-login">Connexion</a>
-            </span>
-        </nav>
+            <nav class="navbar-links">
+                <a href="index.html">Événements</a>
+                <a href="mes-reservations.html" class="active">Mes réservations</a>
+                <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+                <span class="navbar-user" id="navbar-user">
+                    <a href="login.html" id="link-login">Connexion</a>
+                </span>
+            </nav>
         </div>
     </header>
 
     <main>
         <section class="section">
-        <div class="section-header">
-            <h1 class="section-title">Mes réservations</h1>
-            <p class="section-subtitle" id="reservations-subtitle">
-            Chargement de vos réservations...
-            </p>
-        </div>
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Mes réservations</h1>
+                    <p class="section-subtitle" id="reservations-subtitle">Chargement...</p>
+                </div>
+            </div>
 
-        <div id="reservations-list" class="cards-grid">
-            <!-- Cartes réservations injectées en JS -->
-        </div>
+            <div id="success-msg"></div>
 
-        <div id="reservations-empty" class="text-muted" style="display:none; margin-top:1rem;">
-            Aucune réservation en cours.
-        </div>
+            <div id="reservations-list" class="reservations-list"></div>
 
-        <div id="reservations-error" class="alert alert-error" style="display:none;"></div>
+            <div id="reservations-empty" style="display:none;">
+                <div class="reservations-empty">
+                    <div class="reservations-empty-icon">🎟️</div>
+                    <h3>Aucune réservation</h3>
+                    <p>Vous n'avez pas encore de réservation en cours.</p>
+                    <a href="index.html" class="btn btn-primary">Voir les événements</a>
+                </div>
+            </div>
+
+            <div id="reservations-error" class="alert alert-error" style="display:none;"></div>
         </section>
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-brand">
+                    <img src="src/logo-arenes-de-dax.png" alt="Logo">
+                </div>
+            </div>
 
-    <!-- JS -->
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Événements</a>
+                    <a href="mes-reservations.html">Mes réservations</a>
+                    <a href="login.html">Connexion</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Arènes de Dax</h4>
+                    <span>📍 Place Thiers, 40100 Dax</span>
+                    <span>📞 05 58 56 86 86</span>
+                    <span>✉️ contact@arenes-dax.fr</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Arènes de Dax. Tous droits réservés.</span>
+            <span>Fait avec ❤️ pour la tauromachie landaise</span>
+        </div>
+    </footer>
+
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>
     <script src="js/mes-reservations.js"></script>

@@ -3,75 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Réservation confirmée – Arènes de Dax</title>
+    <link rel="icon" type="image/x-icon" href="src/petit logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
-        <div class="navbar-brand">
-            <div class="navbar-logo-mark">AD</div>
-            <div>
-            <div class="navbar-title">Arènes de Dax</div>
-            <div class="navbar-subtitle">Réservation en ligne</div>
+            <div class="navbar-brand">
+                <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
             </div>
-        </div>
-        <nav class="navbar-links">
-            <a href="index.html">Événements</a>
-            <a href="mes-reservations.html">Mes réservations</a>
-            <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
-            <span class="navbar-user" id="navbar-user">
-            <a href="login.html" id="link-login">Connexion</a>
-            </span>
-        </nav>
+            <nav class="navbar-links">
+                <a href="index.html">Événements</a>
+                <a href="mes-reservations.html">Mes réservations</a>
+                <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
+                <span class="navbar-user" id="navbar-user">
+                    <a href="login.html" id="link-login">Connexion</a>
+                </span>
+            </nav>
         </div>
     </header>
 
     <main>
-        <!-- Confirmation -->
         <section class="section">
-        <div class="card" style="max-width: 500px; margin: 0 auto;">
-            <div class="card-header" style="text-align: center;">
-            <div style="width: 60px; height: 60px; margin: 0 auto 1rem; background: var(--color-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 1.8rem; font-weight: bold; color: var(--color-white);">✓</span>
-            </div>
-            <h1 class="card-title">Réservation confirmée !</h1>
-            </div>
+            <div class="confirmation-wrapper">
 
-            <div id="reservation-details">
-            <!-- Détails injectés en JS -->
-            </div>
+                <div class="confirmation-header">
+                    <div class="confirmation-icon">✓</div>
+                    <h1 class="confirmation-title">Réservation confirmée !</h1>
+                    <p class="confirmation-subtitle">Votre place a bien été réservée aux Arènes de Dax</p>
+                </div>
 
-            <div class="card-footer">
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <a href="mes-reservations.html" class="btn btn-primary">Voir mes réservations</a>
-                <a href="index.html" class="btn btn-outline">Nouveau événement</a>
-            </div>
-            </div>
-        </div>
-        </section>
+                <div class="confirmation-card" id="reservation-details">
+                </div>
 
-        <section class="section">
-        <div class="text-muted text-center">
-            <h3>Infos pratiques</h3>
-            <p>Vous pouvez annuler votre réservation à tout moment depuis <strong>"Mes réservations"</strong>.</p>
-            <p>Le paiement se fait sur place lors de la remise des billets.</p>
-        </div>
+                <div class="confirmation-infos">
+                    <div class="confirmation-info-item">
+                        💳 <span>Paiement sur place lors de la remise des billets</span>
+                    </div>
+                    <div class="confirmation-info-item">
+                        ❌ <span>Annulation gratuite depuis <strong>Mes réservations</strong></span>
+                    </div>
+                </div>
+
+                <div class="confirmation-actions">
+                    <a href="mes-reservations.html" class="btn btn-primary">Voir mes réservations</a>
+                    <a href="index.html" class="btn btn-outline">Retour aux événements</a>
+                </div>
+
+            </div>
         </section>
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-brand">
+                    <img src="src/logo-arenes-de-dax.png" alt="Logo">
+                </div>
+            </div>
 
-    <!-- JS -->
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Événements</a>
+                    <a href="mes-reservations.html">Mes réservations</a>
+                    <a href="login.html">Connexion</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Arènes de Dax</h4>
+                    <span>📍 Place Thiers, 40100 Dax</span>
+                    <span>📞 05 58 56 86 86</span>
+                    <span>✉️ contact@arenes-dax.fr</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Arènes de Dax. Tous droits réservés.</span>
+            <span>Fait avec ❤️ pour la tauromachie landaise</span>
+        </div>
+    </footer>
+
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>
     <script src="js/reservation.js"></script>

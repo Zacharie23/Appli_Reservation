@@ -1,4 +1,3 @@
-/* ====== Variables globales ====== */
 :root {
     --color-bg: #F5F0E8;
     --color-bg-dark: #2A1205;
@@ -6,20 +5,20 @@
     --color-secondary: #C8922A;
     --color-accent: #D4A843;
     --color-text: #1F130C;
+    --color-text-dark: #1F130C;
     --color-text-muted: #8C7B6B;
     --color-border: #D1C2B2;
     --color-white: #FFFFFF;
-
     --font-title: "Playfair Display", serif;
     --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
+    --font-heading: "Playfair Display", serif;
     --radius-sm: 6px;
     --radius-md: 10px;
+    --radius-lg: 15px;
     --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
     --transition-fast: 0.2s ease;
 }
 
-/* ====== Reset simple ====== */
 *,
 *::before,
 *::after {
@@ -42,14 +41,6 @@ body {
     min-height: 100vh;
 }
 
-.hero-wrapper {
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Eviter que le contenu colle aux bords de l'écran */
 main {
     flex: 1;
     max-width: 1100px;
@@ -57,28 +48,15 @@ main {
     padding: 2rem 1.5rem 3rem;
 }
 
-/* ====== Titres ====== */
 h1, h2, h3 {
     font-family: var(--font-title);
     color: var(--color-text);
 }
 
-h1 {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
-}
+h1 { font-size: 2.4rem; margin-bottom: 1rem; }
+h2 { font-size: 1.8rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
 
-h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.75rem;
-}
-
-h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-}
-
-/* ====== Liens ====== */
 a {
     color: var(--color-primary);
     text-decoration: none;
@@ -89,7 +67,6 @@ a:hover {
     color: var(--color-accent);
 }
 
-/* ====== Boutons ====== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -135,7 +112,37 @@ a:hover {
     color: var(--color-white);
 }
 
-/* ====== Sections sombres ====== */
+.btn-sm {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+}
+
+.btn-ghost-light {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    color: var(--color-white);
+}
+
+.btn-ghost-light:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn-danger {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-danger:hover {
+    background: #a93226;
+}
+
 .section-dark {
     background-color: var(--color-bg-dark);
     color: var(--color-white);
@@ -157,7 +164,6 @@ a:hover {
     background-color: var(--color-accent);
 }
 
-/* ====== Cartes (events, réservations, etc.) ====== */
 .card {
     background-color: var(--color-white);
     border-radius: var(--radius-md);
@@ -191,7 +197,6 @@ a:hover {
     gap: 0.5rem;
 }
 
-/* ====== Formulaires ====== */
 .form-group {
     margin-bottom: 1rem;
 }
@@ -224,7 +229,6 @@ textarea:focus {
     box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.15);
 }
 
-/* ====== Messages ====== */
 .alert {
     padding: 0.7rem 1rem;
     border-radius: var(--radius-sm);
@@ -244,7 +248,13 @@ textarea:focus {
     border: 1px solid #b1e2bf;
 }
 
-/* Pour le contenu sous la navbar */
-body {
-    margin: 0;
-}
+.text-muted { color: var(--color-text-muted); }
+.text-right { text-align: right; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }

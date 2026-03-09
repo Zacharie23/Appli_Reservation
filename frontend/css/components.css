@@ -1,8 +1,3 @@
-/* ===========================
-    COMPONENTS CSS
-   =========================== */
-
-/* ====== Navbar ====== */
 header {
     background: var(--color-bg-dark);
     color: var(--color-white);
@@ -11,7 +6,7 @@ header {
 .navbar {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -19,14 +14,12 @@ header {
     gap: 2rem;
 }
 
-/* Logo */
 .navbar-brand img {
     height: 48px;
     width: auto;
     display: block;
 }
 
-/* Liens centraux */
 .navbar-links {
     display: flex;
     flex-direction: row;
@@ -51,10 +44,9 @@ header {
     border-bottom-color: var(--color-accent);
 }
 
-/* Partie droite (connexion / user) */
 .navbar-user {
     display: flex;
-    align-items: center;   /* ← centrage vertical */
+    align-items: center;
     gap: 1rem;
 }
 
@@ -67,7 +59,7 @@ header {
 }
 
 #btn-logout {
-    background: #c0392b;        /* ← fond rouge plein */
+    background: #c0392b;
     color: white;
     border: none;
     padding: 0.55rem 1.2rem;
@@ -87,18 +79,15 @@ header {
     box-shadow: 0 6px 16px rgba(192, 57, 43, 0.5);
 }
 
-
-/* ====== Hero ====== */
-
 .hero {
-    background: 
-        linear-gradient(135deg, 
-        rgba(42, 18, 5, 0.92) 0%, 
-        rgba(42, 18, 5, 0.88) 40%, 
-        rgba(192, 57, 43, 0.15) 100%),
+    background:
+        linear-gradient(135deg,
+            rgba(42, 18, 5, 0.92) 0%,
+            rgba(42, 18, 5, 0.88) 40%,
+            rgba(192, 57, 43, 0.15) 100%),
         url('../src/Arènes-de-Dax-2018.jpg') center/cover no-repeat fixed;
     color: var(--color-white);
-    flex: 1;  /* ← Prend tout l'espace restant */
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,7 +104,24 @@ header {
     pointer-events: none;
 }
 
-/* Contenu principal */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(to bottom, transparent, var(--color-bg));
+    pointer-events: none;
+}
+
+.hero-wrapper {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .hero-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -127,22 +133,19 @@ header {
     z-index: 1;
 }
 
-/* Titre optimisé */
 .hero-title {
     font-family: var(--font-title);
-    font-size: clamp(2rem, 5vw, 2.8rem);  /* Responsive auto */
+    font-size: clamp(2rem, 5vw, 2.8rem);
     margin-bottom: 1rem;
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 700;
-    text-shadow: none;
     letter-spacing: -0.01em;
     line-height: 1.1;
 }
 
-/* Sous-titre */
 .hero-subtitle {
     font-size: clamp(0.95rem, 2.2vw, 1.1rem);
     color: rgba(245, 232, 216, 0.95);
@@ -151,7 +154,6 @@ header {
     line-height: 1.6;
 }
 
-/* Meta infos */
 .hero-meta {
     display: flex;
     flex-wrap: wrap;
@@ -171,7 +173,6 @@ header {
     backdrop-filter: blur(8px);
 }
 
-/* Dots */
 .hero-meta-dot {
     width: 7px;
     height: 7px;
@@ -180,14 +181,12 @@ header {
     box-shadow: 0 0 8px rgba(212, 168, 67, 0.4);
 }
 
-/* Bouton */
 .hero .btn {
     font-size: 1rem;
     padding: 0.85rem 2rem;
     box-shadow: 0 8px 24px rgba(192, 57, 43, 0.3);
 }
 
-/* Sidebar infos */
 .hero-aside {
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
@@ -223,9 +222,7 @@ header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.info-item p {
-    margin: 0;
-}
+.info-item p { margin: 0; }
 
 .info-item:last-child {
     margin-bottom: 0;
@@ -255,21 +252,21 @@ header {
     border-radius: 25px;
     padding: 2rem 2.4rem;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    max-width: 50vw;    /* ← 3/4 de l'écran */
-    width: 50vw;        /* ← forcer la largeur */
+    max-width: 50vw;
+    width: 50vw;
     margin: 0 auto;
 }
 
 .login-title {
     color: #2c181a;
-    font-size: 1.8rem;       /* ← Titre réduit */
+    font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 1.8rem;
     text-align: center;
 }
 
 .login-field {
-    margin-bottom: 1.6rem;    /* ← Espacement réduit */
+    margin-bottom: 1.6rem;
 }
 
 .login-field label {
@@ -282,7 +279,7 @@ header {
 
 .login-input {
     width: 100%;
-    padding: 1.1rem 1.4rem;   /* ← Padding champs réduit */
+    padding: 1.1rem 1.4rem;
     border: 2px solid rgba(192, 57, 43, 0.2);
     border-radius: var(--radius-md);
     font-size: 1rem;
@@ -297,7 +294,7 @@ header {
 
 .login-btn {
     width: 100%;
-    padding: 1.1rem 2rem;     /* ← Bouton plus compact */
+    padding: 1.1rem 2rem;
     background: #c0392b;
     color: white;
     border: none;
@@ -322,7 +319,6 @@ header {
     flex: 1;
 }
 
-
 .link-create {
     text-align: center;
     margin-top: 1.4rem;
@@ -331,21 +327,16 @@ header {
 
 .link-create a {
     color: #c0392b;
-    text-decoration: none;
     font-weight: 500;
 }
 
-/* ====== Grille de cartes ====== */
-
-/* Grid */
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* ← 2 colonnes fixes */
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
     margin-top: 1.5rem;
 }
 
-/* Carte */
 .card-event {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.07);
@@ -376,7 +367,6 @@ header {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
 
-/* Header carte */
 .card-event-header {
     display: flex;
     justify-content: space-between;
@@ -404,7 +394,6 @@ header {
     display: inline-block;
 }
 
-/* Date/heure */
 .card-event-meta {
     text-align: right;
     flex-shrink: 0;
@@ -422,7 +411,6 @@ header {
     margin-top: 0.1rem;
 }
 
-/* Description */
 .card-event-description {
     font-size: 0.9rem;
     color: var(--color-text-muted);
@@ -430,7 +418,6 @@ header {
     flex: 1;
 }
 
-/* Footer */
 .card-event-footer {
     display: flex;
     justify-content: space-between;
@@ -440,9 +427,8 @@ header {
     border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Badge capacité */
 .badge {
-    display: inline-flex;   /* ← au lieu de flex */
+    display: inline-flex;
     align-items: center;
     gap: 0.4rem;
     font-size: 0.82rem;
@@ -450,9 +436,8 @@ header {
     background: rgba(0, 0, 0, 0.04);
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
-    width: fit-content;     /* ← taille selon contenu */
+    width: fit-content;
 }
-
 
 .badge-dot {
     width: 7px;
@@ -461,26 +446,6 @@ header {
     background: #c0392b;
     display: inline-block;
 }
-
-
-/* ====== Boutons (affinage) ====== */
-
-.btn-sm {
-    padding: 0.4rem 0.9rem;
-    font-size: 0.8rem;
-}
-
-.btn-ghost-light {
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    color: var(--color-white);
-}
-
-.btn-ghost-light:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-}
-
-/* ====== Sections ====== */
 
 .section {
     margin-top: 2rem;
@@ -504,22 +469,80 @@ header {
     color: var(--color-text-muted);
 }
 
-/* ====== Petites utilitaires ====== */
-
-.text-muted {
-    color: var(--color-text-muted);
+.footer {
+    background: #1a0a02;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: auto;
+    padding-top: 1.5rem;
 }
 
-.text-right {
-    text-align: right;
+.footer-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
 }
 
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 1rem; }
-.mt-4 { margin-top: 1.5rem; }
+.footer-brand {
+    display: flex;
+    align-items: flex-start;
+}
 
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
+.footer-brand img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.footer-links {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 140px;
+}
+
+.footer-col h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0.25rem;
+}
+
+.footer-col a,
+.footer-col span {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.4;
+}
+
+.footer-col a:hover {
+    color: #e8a090;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.3);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}

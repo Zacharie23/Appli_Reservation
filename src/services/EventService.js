@@ -1,6 +1,3 @@
-// Contient la logique métier (traitements, calculs, accès à la DB).
-// 1 fichier par ressource
-
 const Event = require('../models/EventModel');
 
 async function listEvents(title) {

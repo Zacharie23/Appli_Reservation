@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion – Arènes de Dax</title>
+    <link rel="icon" type="image/x-icon" href="src/petit logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
 
-    <!-- Navbar -->
     <header>
         <div class="navbar">
             <div class="navbar-brand">
                 <a href="index.html"><div class="navbar-img"><img src="src/logo-arenes-de-dax.png" alt="Logo"></div></a>
             </div>
             <nav class="navbar-links">
-                <a href="#events">Événements</a>
+                <a href="index.html">Événements</a>
                 <a href="mes-reservations.html">Mes réservations</a>
                 <a href="admin.html" id="link-admin" style="display:none;">Admin</a>
                 <span class="navbar-user" id="navbar-user">
@@ -36,7 +34,6 @@
 
     <main>
 
-        <!-- Formulaire de connexion -->
         <section class="section">
             <div class="login-modal">
                 <h2 class="login-title">Connexion</h2>
@@ -73,14 +70,12 @@
             </div>
         </section>
 
-        <!-- Formulaire d'inscription (caché) -->
         <section id="register-section" class="section" style="display:none;">
             <div class="login-modal">
                 <h2 class="login-title">Inscription</h2>
 
                 <form id="register-form" class="login-form">
 
-                    <!-- Prénom + Nom côte à côte -->
                     <div class="login-field-row">
                         <div class="login-field">
                             <label for="register-prenom">Prénom</label>
@@ -144,8 +139,42 @@
         </section>
 
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-brand">
+                    <img src="src/logo-arenes-de-dax.png" alt="Logo">
+                </div>
+            </div>
 
-    <!-- JS -->
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="index.html">Événements</a>
+                    <a href="mes-reservations.html">Mes réservations</a>
+                    <a href="login.html">Connexion</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informations</h4>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Conditions d'utilisation</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Arènes de Dax</h4>
+                    <span>📍 Place Thiers, 40100 Dax</span>
+                    <span>📞 05 58 56 86 86</span>
+                    <span>✉️ contact@arenes-dax.fr</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 Arènes de Dax. Tous droits réservés.</span>
+            <span>Fait avec ❤️ pour la tauromachie landaise</span>
+        </div>
+    </footer>
+
     <script src="js/auth.js"></script>
     <script src="js/api.js"></script>
     <script src="js/login.js"></script>

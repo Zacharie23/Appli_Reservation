@@ -1,26 +1,22 @@
-// frontend/js/mes-reservations.js
-
 document.addEventListener('DOMContentLoaded', () => {
     setupNavbar();
-    requireAuth(); // Redirige si pas connecté
+    requireAuth();
     loadReservations();
 });
 
 function setupNavbar() {
     const user = getCurrentUser();
     const navbarUser = document.getElementById('navbar-user');
-    const linkLogin = document.getElementById('link-login');
     const linkAdmin = document.getElementById('link-admin');
 
     if (user) {
         navbarUser.innerHTML = `
-        <span>Bonjour, ${user.email}</span>
-        <button class="btn btn-outline btn-sm" id="btn-logout">Déconnexion</button>
+            <button class="btn btn-outline btn-sm" id="btn-logout">Déconnexion</button>
         `;
         document.getElementById('btn-logout').addEventListener('click', logout);
-        
+
         if (user.role === 'admin') {
-        linkAdmin.style.display = 'inline';
+            linkAdmin.style.display = 'inline';
         }
     }
 }
@@ -40,50 +36,58 @@ async function loadReservations() {
         const reservations = await apiGetMyReservations();
 
         if (!reservations || reservations.length === 0) {
-        subtitleEl.textContent = 'Aucune réservation.';
-        emptyEl.style.display = 'block';
-        return;
+            subtitleEl.textContent = 'Aucune réservation.';
+            emptyEl.style.display = 'block';
+            return;
         }
 
         subtitleEl.textContent = `${reservations.length} réservation(s) en cours`;
 
         reservations.forEach(res => {
-        const card = document.createElement('article');
-        card.className = 'card';
+            const card = document.createElement('article');
+            card.className = 'reservation-card';
+            card.id = `res-${res.id}`;
 
-        const date = res.event_date || '';
-        const heure = res.event_heure || '';
+            card.innerHTML = `
+                <div class="reservation-card-left">
+                    <div class="reservation-event-date">
+                        <span class="res-day">${formatDay(res.event_date)}</span>
+                        <span class="res-month">${formatMonth(res.event_date)}</span>
+                        <span class="res-year">${formatYear(res.event_date)}</span>
+                    </div>
+                </div>
 
-        card.innerHTML = `
-            <div class="card-header">
-            <div>
-                <h3 class="card-title">${escapeHtml(res.event_title)}</h3>
-                <div class="card-subtitle">${escapeHtml(res.seat_value)}</div>
-                <div class="card-event-type">${escapeHtml(res.category_name)} • ${escapeHtml(res.category_situation)}</div>
-            </div>
-            <div class="text-right">
-                <div class="card-event-title">${res.category_price}€</div>
-            </div>
-            </div>
-            <div class="card-event-meta" style="margin-bottom: 0.6rem;">
-            <div>${date} à ${heure}</div>
-            <div style="font-size: 0.85rem; color: var(--color-text-muted);">Réservée le ${res.created_at}</div>
-            </div>
-            <div class="card-footer">
-            <button class="btn btn-outline" onclick="window.location.href='index.html'">
-                Voir l'événement
-            </button>
-            <button class="btn btn-primary" onclick="cancelReservation(${res.id})">
-                Annuler
-            </button>
-            </div>
-        `;
+                <div class="reservation-card-body">
+                    <div class="reservation-card-top">
+                        <div>
+                            <h3 class="reservation-event-title">${escapeHtml(res.event_title)}</h3>
+                            <span class="card-event-type">${escapeHtml(res.category_name)} • ${escapeHtml(res.category_situation)}</span>
+                        </div>
+                        <div class="reservation-price">${res.category_price}€</div>
+                    </div>
 
-        listEl.appendChild(card);
+                    <div class="reservation-card-meta">
+                        <span>🕐 ${res.event_heure || ''}</span>
+                        <span>🎫 ${escapeHtml(res.seat_value)}</span>
+                        <span class="res-created">Réservée le ${formatDateTime(res.created_at)}</span>
+                    </div>
+
+                    <div class="reservation-card-footer">
+                        <button class="btn btn-outline btn-sm" onclick="window.location.href='event.html?id=${res.event_id}'">
+                            Voir l'événement
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="cancelReservation(${res.id})">
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            listEl.appendChild(card);
         });
 
     } catch (err) {
-        console.error('Erreur réservations:', err);
+        console.error(err);
         subtitleEl.textContent = 'Impossible de charger vos réservations.';
         errorEl.textContent = err.message || 'Erreur lors du chargement.';
         errorEl.style.display = 'block';
@@ -95,23 +99,48 @@ async function cancelReservation(reservationId) {
 
     try {
         await apiDeleteReservation(reservationId);
-        
-        // Recharger la liste
-        loadReservations();
-        
-        // Message de succès
-        const successEl = document.createElement('div');
-        successEl.className = 'alert alert-success';
-        successEl.textContent = 'Réservation annulée avec succès.';
-        document.querySelector('.section-header').parentNode.insertBefore(successEl, document.querySelector('.section-header').nextSibling);
-        
-        // Auto-disparition
-        setTimeout(() => successEl.remove(), 4000);
-        
+
+        const card = document.getElementById(`res-${reservationId}`);
+        if (card) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateX(-20px)';
+            card.style.transition = 'all 0.3s ease';
+            setTimeout(() => card.remove(), 300);
+        }
+
+        const successEl = document.getElementById('success-msg');
+        successEl.innerHTML = `<div class="alert alert-success">✅ Réservation annulée avec succès.</div>`;
+        setTimeout(() => successEl.innerHTML = '', 4000);
+
+        setTimeout(() => loadReservations(), 400);
+
     } catch (err) {
-        console.error('Erreur annulation:', err);
+        console.error(err);
         alert(err.message || 'Erreur lors de l\'annulation');
     }
+}
+
+function formatDay(dateStr) {
+    if (!dateStr) return '--';
+    return new Date(dateStr).toLocaleDateString('fr-FR', { day: '2-digit' });
+}
+
+function formatMonth(dateStr) {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('fr-FR', { month: 'short' }).toUpperCase();
+}
+
+function formatYear(dateStr) {
+    if (!dateStr) return '';
+    return new Date(dateStr).getFullYear();
+}
+
+function formatDateTime(dateStr) {
+    if (!dateStr) return '';
+    return new Date(dateStr).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
 }
 
 function escapeHtml(str) {

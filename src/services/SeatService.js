@@ -6,7 +6,6 @@ async function listSeats() {
 }
 
 async function listAvailableByEvent(eventId) {
-    // Vérifier que l'event existe
     const eventExists = await new Promise((resolve, reject) => {
         db.get(`SELECT id FROM events WHERE id = ?`, [eventId], (err, row) => {
         if (err) reject(err);
