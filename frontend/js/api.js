@@ -55,8 +55,10 @@ async function apiRegister(email, password, nom, prenom) {
     });
 }
 
-async function apiGetEvents() {
-    return await apiRequest('/events', { method: 'GET' });
+async function apiGetEvents({ limit = 6, offset = 0, type = null } = {}) {
+    const params = new URLSearchParams({ limit, offset });
+    if (type) params.append('type', type);
+    return await apiRequest(`/events?${params}`, { method: 'GET' });
 }
 
 async function apiGetEventById(id) {

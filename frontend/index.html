@@ -95,9 +95,23 @@
                         Chargement des événements...
                     </p>
                 </div>
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-type="">Tous</button>
+                    <button class="filter-btn" data-type="Corrida">Corrida</button>
+                    <button class="filter-btn" data-type="Course landaise">Course landaise</button>
+                    <button class="filter-btn" data-type="Novillada">Novillada</button>
+                    <button class="filter-btn" data-type="Spectacle taurin">Spectacle taurin</button>
+                    <button class="filter-btn" data-type="Concert">Concert</button>
+                    <button class="filter-btn" data-type="Cocarde">Cocarde</button>
+                </div>
             </div>
 
-            <div id="events-list" class="cards-grid">
+            <div id="events-list" class="cards-grid"></div>
+
+            <div id="events-pagination" class="pagination" style="display:none;">
+                <button class="btn btn-outline btn-sm" id="btn-prev" disabled>← Précédent</button>
+                <span id="pagination-info" class="pagination-info"></span>
+                <button class="btn btn-outline btn-sm" id="btn-next">Suivant →</button>
             </div>
 
             <div id="events-empty" class="text-muted" style="display:none; margin-top:1rem;">

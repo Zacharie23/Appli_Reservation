@@ -32,7 +32,9 @@ async function loadAdminEvents() {
     errorEl.style.display = 'none';
 
     try {
-        const events = await apiGetEvents();
+        const res = await apiGetEvents({ limit: 999, offset: 0 });
+        const events = Array.isArray(res) ? res : (res.events || []);
+        events.sort((a, b) => new Date(a.date) - new Date(b.date));
         events.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         if (!events || events.length === 0) {
