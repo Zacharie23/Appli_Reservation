@@ -13,7 +13,6 @@ beforeAll(async () => {
 afterAll(() => new Promise((resolve) => db.close(resolve)));
 
 
-
 describe('POST /auth/login', () => {
 
     test('✅ 200 avec token si credentials valides', async () => {

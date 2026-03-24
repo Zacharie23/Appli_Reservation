@@ -1,5 +1,3 @@
-// tests/helpers/setupTestDb.js
-
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt  = require('bcrypt');
 
@@ -53,8 +51,7 @@ function createTestDb() {
                     FOREIGN KEY (event_id) REFERENCES events(id),
                     FOREIGN KEY (seat_id)  REFERENCES seats(id)
                 )`, async () => {
-                    // Données de base
-                    const hash = await bcrypt.hash('password123', 10);
+                    const hash      = await bcrypt.hash('password123', 10);
                     const hashAdmin = await bcrypt.hash('admin123', 10);
 
                     db.run(`INSERT INTO users (email, password, nom, prenom, role)

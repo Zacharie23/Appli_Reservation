@@ -1,6 +1,3 @@
-// tests/frontend/escapeHtml.test.js
-
-// Fonction extraite directement (copiée depuis index.js/event.js)
 function escapeHtml(str) {
     if (!str) return '';
     return str
@@ -9,6 +6,7 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 }
+
 
 describe('escapeHtml()', () => {
 

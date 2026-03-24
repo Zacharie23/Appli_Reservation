@@ -1,5 +1,3 @@
-// tests/frontend/formatDate.test.js
-
 function formatDate(dateStr) {
     if (!dateStr) return '';
     let date;

@@ -1,5 +1,3 @@
-// tests/unit/authService.test.js
-
 const authService = require('../../src/services/AuthService');
 const User = require('../../src/models/UserModel');
 
@@ -20,10 +18,9 @@ describe('AuthService.login', () => {
         const result = await authService.login('test@test.com', 'password123');
 
         expect(result).toHaveProperty('token');
-        expect(result.user).not.toHaveProperty('password'); // mot de passe jamais exposé
+        expect(result.user).not.toHaveProperty('password');
         expect(result.user.email).toBe('test@test.com');
     });
-
 
     test('❌ lance une erreur 401 si l\'email est inconnu', async () => {
         User.findByEmail.mockResolvedValue(null);
@@ -32,7 +29,6 @@ describe('AuthService.login', () => {
             authService.login('inconnu@test.com', 'password123')
         ).rejects.toMatchObject({ status: 401, message: 'Utilisateur non trouvé' });
     });
-
 
     test('❌ lance une erreur 401 si le mot de passe est incorrect', async () => {
         User.findByEmail.mockResolvedValue({
@@ -53,7 +49,7 @@ describe('AuthService.register', () => {
     beforeEach(() => jest.clearAllMocks());
 
     test('✅ crée un utilisateur si l\'email est libre', async () => {
-        User.findByEmail.mockResolvedValue(null); // pas de doublon
+        User.findByEmail.mockResolvedValue(null);
         User.create.mockResolvedValue({
             id: 2, email: 'nouveau@test.com', nom: 'Martin', prenom: 'Léa', role: 'user'
         });
@@ -63,7 +59,6 @@ describe('AuthService.register', () => {
         expect(result.email).toBe('nouveau@test.com');
         expect(User.create).toHaveBeenCalledWith('nouveau@test.com', 'pass123', 'Martin', 'Léa');
     });
-
 
     test('❌ lance une erreur 409 si l\'email est déjà utilisé', async () => {
         User.findByEmail.mockResolvedValue({ id: 1, email: 'existe@test.com' });

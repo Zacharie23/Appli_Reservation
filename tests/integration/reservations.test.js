@@ -23,7 +23,6 @@ beforeAll(async () => {
 afterAll(() => new Promise((resolve) => db.close(resolve)));
 
 
-
 describe('POST /reservations', () => {
 
     test('✅ 201 réservation créée sur une place libre', async () => {

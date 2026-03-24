@@ -23,13 +23,13 @@ beforeAll(async () => {
 afterAll(() => new Promise((resolve) => db.close(resolve)));
 
 
-
 describe('GET /events', () => {
 
     test('✅ 200 retourne la liste des événements (sans auth)', async () => {
         const res = await request(app).get('/events');
         expect(res.status).toBe(200);
-        expect(Array.isArray(res.body)).toBe(true);
+        expect(res.body).toHaveProperty('events');
+        expect(Array.isArray(res.body.events)).toBe(true);
     });
 
 });

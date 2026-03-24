@@ -1,5 +1,3 @@
-// tests/unit/reservationService.test.js
-
 const reservationService = require('../../src/services/ReservationService');
 const Reservation = require('../../src/models/ReservationModel');
 const db = require('../../src/db');
@@ -10,19 +8,14 @@ jest.mock('../../src/db', () => ({
 }));
 
 
-// ===== createReservation =====
-
 describe('ReservationService.createReservation', () => {
 
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
+    beforeEach(() => jest.clearAllMocks());
 
     test('✅ crée une réservation si la place et l\'event existent', async () => {
-        // Simule seat trouvé
         db.get
-            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }))  // seat existe
-            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 })); // event existe
+            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }))
+            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }));
 
         Reservation.create.mockResolvedValue({ id: 10, user_id: 1, event_id: 1, seat_id: 1 });
 
@@ -34,9 +27,8 @@ describe('ReservationService.createReservation', () => {
         expect(Reservation.create).toHaveBeenCalledTimes(1);
     });
 
-
     test('❌ lance une erreur 404 si la place n\'existe pas', async () => {
-        db.get.mockImplementationOnce((sql, params, cb) => cb(null, null)); // seat introuvable
+        db.get.mockImplementationOnce((sql, params, cb) => cb(null, null));
 
         await expect(
             reservationService.createReservation({ user_id: 1, event_id: 1, seat_id: 999 })
@@ -45,11 +37,10 @@ describe('ReservationService.createReservation', () => {
         expect(Reservation.create).not.toHaveBeenCalled();
     });
 
-
     test('❌ lance une erreur 404 si l\'événement n\'existe pas', async () => {
         db.get
-            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 })) // seat OK
-            .mockImplementationOnce((sql, params, cb) => cb(null, null));      // event introuvable
+            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }))
+            .mockImplementationOnce((sql, params, cb) => cb(null, null));
 
         await expect(
             reservationService.createReservation({ user_id: 1, event_id: 999, seat_id: 1 })
@@ -58,11 +49,10 @@ describe('ReservationService.createReservation', () => {
         expect(Reservation.create).not.toHaveBeenCalled();
     });
 
-
     test('❌ lance une erreur 409 si la place est déjà réservée (règle métier)', async () => {
         db.get
             .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }))
-            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 })); 
+            .mockImplementationOnce((sql, params, cb) => cb(null, { id: 1 }));
 
         Reservation.create.mockRejectedValue(
             new Error('UNIQUE constraint failed: reservations.event_id, reservations.seat_id')
@@ -79,13 +69,9 @@ describe('ReservationService.createReservation', () => {
 });
 
 
-// ===== deleteReservation =====
-
 describe('ReservationService.deleteReservation', () => {
 
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
+    beforeEach(() => jest.clearAllMocks());
 
     test('✅ le propriétaire peut annuler sa réservation', async () => {
         Reservation.getById.mockResolvedValue({ id: 5, user_id: 1 });
@@ -96,7 +82,6 @@ describe('ReservationService.deleteReservation', () => {
         expect(Reservation.remove).toHaveBeenCalledWith(5);
     });
 
-
     test('✅ un admin peut annuler n\'importe quelle réservation', async () => {
         Reservation.getById.mockResolvedValue({ id: 5, user_id: 2 });
         Reservation.remove.mockResolvedValue(true);
@@ -105,17 +90,15 @@ describe('ReservationService.deleteReservation', () => {
         expect(result).toBe(true);
     });
 
-
     test('❌ un user ne peut pas annuler la réservation d\'un autre (→ 403)', async () => {
-        Reservation.getById.mockResolvedValue({ id: 5, user_id: 2 }); // réservation de l'user 2
+        Reservation.getById.mockResolvedValue({ id: 5, user_id: 2 });
 
         await expect(
-            reservationService.deleteReservation(5, { id: 1, role: 'user' }) // user 1 essaie
+            reservationService.deleteReservation(5, { id: 1, role: 'user' })
         ).rejects.toMatchObject({ status: 403 });
 
         expect(Reservation.remove).not.toHaveBeenCalled();
     });
-
 
     test('❌ lance une erreur 404 si la réservation n\'existe pas', async () => {
         Reservation.getById.mockResolvedValue(null);

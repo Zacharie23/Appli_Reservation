@@ -1,9 +1,5 @@
-// tests/frontend/apiRequest.test.js
-
-// On recrée la logique de apiRequest de api.js pour la tester isolément
 global.fetch = jest.fn();
 
-// Simule localStorage (absent dans Node.js)
 global.localStorage = {
     _store: {},
     getItem(key)        { return this._store[key] || null; },
