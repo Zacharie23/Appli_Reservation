@@ -1,0 +1,277 @@
+<html><head><meta charset="utf-8"/><title>Rapport de tests — Arènes de Dax</title><style type="text/css">:root {
+  --text-primary: #111;
+  --text-secondary: #4f4f4f;
+  --success: #006633;
+  --success-bright: #80ffbf;
+  --danger: #cc071e;
+  --danger-bright: #fbdfe0;
+  --warning: #995c00;
+  --warning-bright: #ffeea8;
+  --panel: #eee;
+  --border: #949494;
+  --disabled: #6b6b6b;
+}
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+}
+body {
+  padding: 2rem 1rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+#metadata-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.additional-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+/** SUMMARY */
+#summary {
+  color: var(--text-primary);
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 0.5rem;
+  background: var(--panel);
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 1rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: var(--success);
+  border-left: 0.4rem solid var(--success);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: var(--danger);
+  border-left: 0.4rem solid var(--danger);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-pending {
+  color: var(--warning);
+  border-left: 0.4rem solid var(--warning);
+  padding-left: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.summary-empty {
+  color: var(--disabled);
+  border-left: 0.4rem solid var(--disabled);
+  margin-bottom: 0.15rem;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: var(--success-bright);
+  color: var(--success);
+}
+.test-result.failed {
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.test-result.pending {
+  background-color: var(--warning-bright);
+  color: var(--warning);
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed var(--danger);
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 1rem;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: var(--panel);
+  color: var(--text-secondary);
+  border: 0.15rem solid;
+  border-color: var(--panel);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  border-color: var(--border);
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 1rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.85rem;
+}
+.suite-info .suite-time.warn {
+  background-color: var(--danger);
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 1rem;
+  transform: rotate(180deg) translateY(0.15rem);
+}
+.suite-container[open] .suite-info:before {
+  transform: rotate(0deg) translateY(0.15rem);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--panel);
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: var(--danger-bright);
+  color: var(--danger);
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><main class="jesthtml-content"><header><h1 id="title">Rapport de tests — Arènes de Dax</h1></header><section id="metadata-container"><div id="timestamp">Started: 2026-03-24 16:09:50</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (11)</div><div class="summary-passed ">11 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (68)</div><div class="summary-passed ">68 passed</div><div class="summary-failed  summary-empty">0 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></section><details id="suite-1" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\integration\auth.test.js</div><div class="suite-time">2.502s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/login</div><div class="test-title">✅ 200 avec token si credentials valides</div><div class="test-status">passed</div><div class="test-duration">0.159s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/login</div><div class="test-title">❌ 401 si email inconnu</div><div class="test-status">passed</div><div class="test-duration">0.015s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/login</div><div class="test-title">❌ 401 si mauvais mot de passe</div><div class="test-status">passed</div><div class="test-duration">0.107s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/login</div><div class="test-title">❌ 400 si champs manquants</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/register</div><div class="test-title">✅ 201 si nouvel email valide</div><div class="test-status">passed</div><div class="test-duration">0.108s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/register</div><div class="test-title">❌ 409 si email déjà utilisé</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /auth/register</div><div class="test-title">❌ 400 si nom/prénom manquants</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div></div></details><details id="suite-2" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\integration\reservations.test.js</div><div class="suite-time">0.886s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /reservations</div><div class="test-title">✅ 201 réservation créée sur une place libre</div><div class="test-status">passed</div><div class="test-duration">0.014s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /reservations</div><div class="test-title">❌ 409 place déjà réservée — RÈGLE MÉTIER</div><div class="test-status">passed</div><div class="test-duration">0.011s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /reservations</div><div class="test-title">❌ 401 sans token</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /reservations</div><div class="test-title">❌ 404 si seat_id inexistant</div><div class="test-status">passed</div><div class="test-duration">0.012s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /reservations</div><div class="test-title">❌ 404 si event_id inexistant</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /reservations/me</div><div class="test-title">✅ 200 retourne les réservations du user connecté</div><div class="test-status">passed</div><div class="test-duration">0.011s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /reservations/me</div><div class="test-title">❌ 401 sans token</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">DELETE /reservations/:id</div><div class="test-title">✅ le propriétaire peut annuler sa réservation</div><div class="test-status">passed</div><div class="test-duration">0.019s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">DELETE /reservations/:id</div><div class="test-title">❌ 404 si la réservation n'existe pas</div><div class="test-status">passed</div><div class="test-duration">0.009s</div></div></div></div></details><details id="suite-3" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\integration\events.test.js</div><div class="suite-time">0.808s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /events</div><div class="test-title">✅ 200 retourne la liste des événements (sans auth)</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /events</div><div class="test-title">✅ 201 si admin crée un événement</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /events</div><div class="test-title">❌ 403 si user non admin essaie de créer</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /events</div><div class="test-title">❌ 401 sans token</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">POST /events</div><div class="test-title">❌ 400 si champs obligatoires manquants</div><div class="test-status">passed</div><div class="test-duration">0.01s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">DELETE /events/:id</div><div class="test-title">✅ 200 si admin supprime un événement existant</div><div class="test-status">passed</div><div class="test-duration">0.014s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">DELETE /events/:id</div><div class="test-title">❌ 403 si user essaie de supprimer</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div></details><details id="suite-4" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\integration\users.test.js</div><div class="suite-time">0.72s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /users</div><div class="test-title">✅ 200 admin récupère la liste des users</div><div class="test-status">passed</div><div class="test-duration">0.007s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /users</div><div class="test-title">❌ 403 si user non admin essaie d'accéder</div><div class="test-status">passed</div><div class="test-duration">0.005s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">GET /users</div><div class="test-title">❌ 401 sans token</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div></div></details><details id="suite-5" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\unit\eventService.test.js</div><div class="suite-time">0.125s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">EventService.listEvents</div><div class="test-title">✅ retourne tous les événements</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">EventService.listEvents</div><div class="test-title">✅ filtre les événements par titre</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">EventService.patchEvent</div><div class="test-title">✅ fusionne correctement les champs existants avec les nouveaux</div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">EventService.patchEvent</div><div class="test-title">❌ retourne null si l'événement n'existe pas</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div></div></details><details id="suite-6" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\unit\authService.test.js</div><div class="suite-time">0.113s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">AuthService.login</div><div class="test-title">✅ retourne un token et l'user si credentials valides</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AuthService.login</div><div class="test-title">❌ lance une erreur 401 si l'email est inconnu</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AuthService.login</div><div class="test-title">❌ lance une erreur 401 si le mot de passe est incorrect</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AuthService.register</div><div class="test-title">✅ crée un utilisateur si l'email est libre</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">AuthService.register</div><div class="test-title">❌ lance une erreur 409 si l'email est déjà utilisé</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div></div></details><details id="suite-7" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\frontend\formatDate.test.js</div><div class="suite-time">0.172s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDate()</div><div class="test-title">✅ retourne chaîne vide si null</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDate()</div><div class="test-title">✅ formate une date ISO (YYYY-MM-DD)</div><div class="test-status">passed</div><div class="test-duration">0.082s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDate()</div><div class="test-title">✅ formate une date DD/MM/YYYY</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatDay retourne -- si null</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatDay retourne le jour sur 2 chiffres</div><div class="test-status">passed</div><div class="test-duration"> </div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatMonth retourne chaîne vide si null</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatMonth retourne le mois en majuscules</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatYear retourne l'année correcte</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">formatDay / formatMonth / formatYear</div><div class="test-title">✅ formatYear retourne chaîne vide si null</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div></div></details><details id="suite-8" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\unit\reservationService.test.js</div><div class="suite-time">0.106s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.createReservation</div><div class="test-title">✅ crée une réservation si la place et l'event existent</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.createReservation</div><div class="test-title">❌ lance une erreur 404 si la place n'existe pas</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.createReservation</div><div class="test-title">❌ lance une erreur 404 si l'événement n'existe pas</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.createReservation</div><div class="test-title">❌ lance une erreur 409 si la place est déjà réservée (règle métier)</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.deleteReservation</div><div class="test-title">✅ le propriétaire peut annuler sa réservation</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.deleteReservation</div><div class="test-title">✅ un admin peut annuler n'importe quelle réservation</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.deleteReservation</div><div class="test-title">❌ un user ne peut pas annuler la réservation d'un autre (→ 403)</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">ReservationService.deleteReservation</div><div class="test-title">❌ lance une erreur 404 si la réservation n'existe pas</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div></div></details><details id="suite-9" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\unit\userService.test.js</div><div class="suite-time">0.108s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">UserService.deleteUser</div><div class="test-title">✅ supprime un utilisateur existant</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">UserService.deleteUser</div><div class="test-title">❌ lance une erreur 400 si l'admin essaie de se supprimer lui-même</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">UserService.updateUser</div><div class="test-title">✅ met à jour un utilisateur sans conflit d'email</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">UserService.updateUser</div><div class="test-title">❌ lance une erreur 409 si le nouvel email est déjà pris par un autre user</div><div class="test-status">passed</div><div class="test-duration"> </div></div></div></div></details><details id="suite-10" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\frontend\apiRequest.test.js</div><div class="suite-time">0.107s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">apiRequest()</div><div class="test-title">✅ retourne les données si la réponse est 200</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">apiRequest()</div><div class="test-title">❌ lance une erreur avec status 401 si non authentifié</div><div class="test-status">passed</div><div class="test-duration"> </div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">apiRequest()</div><div class="test-title">❌ lance une erreur 409 avec le bon message pour place déjà réservée</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">apiRequest()</div><div class="test-title">❌ lance une erreur 404 avec message générique si pas de body JSON</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">apiRequest()</div><div class="test-title">✅ ajoute le token Authorization si connecté</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div></div></details><details id="suite-11" class="suite-container" open=""><summary class="suite-info"><div class="suite-path">C:\Users\Romain Sintas\Desktop\Etudes\Esnl\B2\projet appli resa\Appli_Reservation\tests\frontend\escapeHtml.test.js</div><div class="suite-time">0.093s</div></summary><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ retourne une chaîne vide si null</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ retourne une chaîne vide si undefined</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ ne modifie pas une chaîne sans caractères spéciaux</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ échappe les chevrons &lt;&gt;</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ échappe les guillemets "</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ échappe les esperluettes &amp;</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">escapeHtml()</div><div class="test-title">✅ protège contre une injection XSS basique</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div></div></details></main></body></html>

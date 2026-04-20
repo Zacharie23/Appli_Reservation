@@ -10,6 +10,6 @@ Dans un terminal, faire :
 
 `node  server.js`
 
-ou pour éviter de relancer le server à chaque modification (avec nodemon): 
+ou pour éviter de relancer le server à chaque modifications (avec nodemon): 
 
 `npm run dev`
