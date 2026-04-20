@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 const cors = require('cors');
 
@@ -20,6 +21,7 @@ const userRoutes = require('./routes/UserRoutes');
 setupSwagger(app);
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/events', routes);
 app.use('/auth', authRoutes);
 app.use('/reservations', reservationRoutes);
