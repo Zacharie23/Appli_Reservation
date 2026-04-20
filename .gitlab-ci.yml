@@ -8,18 +8,18 @@ build-job:
   tags:
     - projeet
   script:
-    - echo "🔨 Build du projet..."
+    - echo "Build du projet"
 
 test-job:
   stage: test
   tags:
     - projeet
   script:
-    - echo "🧪 Tests en cours..."
+    - echo "Tests en cours"
 
 deploy-job:
   stage: deploy
   tags:
     - projeet
   script:
-    - echo "🚀 Déploiement..."
+    - echo "Deploiement"
