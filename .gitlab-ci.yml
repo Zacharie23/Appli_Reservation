@@ -1,25 +1,79 @@
 stages:
-  - build
+  - install
   - test
-  - deploy
+  - build
+  - package
 
-build-job:
-  stage: build
+# ─── CACHE npm pour éviter de retélécharger les dépendances ───────────────────
+default:
   tags:
     - projeet
-  script:
-    - echo "Build du projet"
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
 
-test-job:
+# ─── STAGE 1 : Installation des dépendances ───────────────────────────────────
+install-deps:
+  stage: install
+  image: node:18
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+# ─── STAGE 2 : Tests + rapport HTML ───────────────────────────────────────────
+run-tests:
   stage: test
-  tags:
-    - projeet
+  image: node:18
+  dependencies:
+    - install-deps
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq python3 make g++
   script:
-    - echo "Tests en cours"
+    - npm test
+  artifacts:
+    name: "rapport-tests-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - tests/report/index.html
+    expire_in: 7 days
+    when: always
 
-deploy-job:
-  stage: deploy
-  tags:
-    - projeet
+# ─── STAGE 3 : Build de l'image Docker ────────────────────────────────────────
+build-docker:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - echo "Deploiement"
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  needs:
+    - run-tests
+
+# ─── STAGE 4 : Export de l'image comme artefact (si pas de registry) ──────────
+export-image:
+  stage: package
+  image: docker:24
+  services:
+    - docker:24-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+    IMAGE_TAG: appli-reservation:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker save $IMAGE_TAG | gzip > appli-reservation.tar.gz
+  artifacts:
+    name: "image-docker-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - appli-reservation.tar.gz
+    expire_in: 3 days
+  needs:
+    - run-tests
