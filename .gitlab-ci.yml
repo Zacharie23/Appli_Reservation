@@ -46,27 +46,28 @@ build-docker:
   stage: build
   image: docker:24
   services:
-    - docker:24-dind
+    - name: docker:24-dind
+      command: ["--tls=false"]
   variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: "tcp://docker:2375"
+    IMAGE_TAG: "appli-reservation:$CI_COMMIT_SHORT_SHA"
   script:
     - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
   needs:
     - run-tests
 
-# ─── STAGE 4 : Export de l'image comme artefact (si pas de registry) ──────────
+# ─── STAGE 4 : Export de l'image comme artefact ───────────────────────────────
 export-image:
   stage: package
   image: docker:24
   services:
-    - docker:24-dind
+    - name: docker:24-dind
+      command: ["--tls=false"]
   variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    IMAGE_TAG: appli-reservation:$CI_COMMIT_SHORT_SHA
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_HOST: "tcp://docker:2375"
+    IMAGE_TAG: "appli-reservation:$CI_COMMIT_SHORT_SHA"
   script:
     - docker build -t $IMAGE_TAG .
     - docker save $IMAGE_TAG | gzip > appli-reservation.tar.gz
