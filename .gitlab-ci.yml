@@ -3,6 +3,8 @@ stages:
   - test
   - build
   - package
+  - deploy
+
 
 # ─── CACHE npm pour éviter de retélécharger les dépendances ───────────────────
 default:
@@ -12,6 +14,7 @@ default:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
       - node_modules/
+
 
 # ─── STAGE 1 : Installation des dépendances ───────────────────────────────────
 install-deps:
@@ -23,6 +26,7 @@ install-deps:
     paths:
       - node_modules/
     expire_in: 1 hour
+
 
 # ─── STAGE 2 : Tests + rapport HTML ───────────────────────────────────────────
 run-tests:
@@ -41,6 +45,7 @@ run-tests:
     expire_in: 7 days
     when: always
 
+
 # ─── STAGE 3 : Build de l'image Docker ────────────────────────────────────────
 build-docker:
   stage: build
@@ -56,6 +61,7 @@ build-docker:
     - docker build -t $IMAGE_TAG .
   needs:
     - run-tests
+
 
 # ─── STAGE 4 : Export de l'image comme artefact ───────────────────────────────
 export-image:
@@ -78,3 +84,39 @@ export-image:
     expire_in: 3 days
   needs:
     - run-tests
+
+
+# ─── STAGE 5 : Déploiement automatique sur la VM ─────────────────────────────
+deploy:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+  script:
+    - |
+      ssh $SSH_USER@$SSH_HOST "
+        cd /root &&
+        curl -L \
+          --header 'PRIVATE-TOKEN: glpat-rp66vxTE1hb77qCq0tW__G86MQp1OjEH.01.0w05tf9g4' \
+          'http://100.119.96.20:8929/api/v4/projects/1/jobs/artifacts/main/download?job=export-image' \
+          -o artifacts.zip &&
+        unzip -o artifacts.zip &&
+        gunzip -c appli-reservation.tar.gz | docker load &&
+        docker stop appli-reservation || true &&
+        docker rm appli-reservation || true &&
+        docker run -d \
+          --name appli-reservation \
+          -p 3000:3000 \
+          -e JWT_SECRET=$JWT_SECRET \
+          --restart unless-stopped \
+          appli-reservation:$CI_COMMIT_SHORT_SHA
+      "
+  needs:
+    - export-image
+  only:
+    - main
