@@ -106,7 +106,8 @@ deploy:
           'http://100.119.96.20:8929/api/v4/projects/1/jobs/artifacts/main/download?job=export-image' \
           -o artifacts.zip &&
         unzip -o artifacts.zip &&
-        gunzip -c appli-reservation.tar.gz | docker load &&
+        IMAGE_TAG=\$(gunzip -c appli-reservation.tar.gz | docker load | grep 'Loaded image:' | awk '{print \$3}') &&
+        echo \"Image chargée : \$IMAGE_TAG\" &&
         docker stop appli-reservation || true &&
         docker rm appli-reservation || true &&
         docker run -d \
@@ -114,7 +115,7 @@ deploy:
           -p 3000:3000 \
           -e JWT_SECRET=$JWT_SECRET \
           --restart unless-stopped \
-          appli-reservation:$CI_COMMIT_SHORT_SHA
+          \$IMAGE_TAG
       "
   needs:
     - export-image
